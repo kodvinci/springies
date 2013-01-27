@@ -10,7 +10,7 @@ import java.util.ArrayList;
 
 import simulation.elements.Mass;
 import simulation.elements.Spring;
-import simulation.environment.forces.Force;
+import simulation.forces.Force;
 import view.Canvas;
 
 /**

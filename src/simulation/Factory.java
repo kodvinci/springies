@@ -9,14 +9,14 @@ import java.util.Scanner;
 import simulation.elements.FixedMass;
 import simulation.elements.Mass;
 import simulation.elements.Spring;
-import simulation.environment.forces.CenterOfMassForce;
-import simulation.environment.forces.GravitationalForce;
-import simulation.environment.forces.ViscousForce;
-import simulation.environment.forces.walls.BottomWallRepulsionForce;
-import simulation.environment.forces.walls.LeftWallRepulsionForce;
-import simulation.environment.forces.walls.RightWallRepulsionForce;
-import simulation.environment.forces.walls.TopWallRepulsionForce;
-import simulation.environment.forces.walls.WallRepulsionForce;
+import simulation.forces.GravitationalForce;
+import simulation.forces.ViscousForce;
+import simulation.forces.exponentforces.CenterOfMassForce;
+import simulation.forces.exponentforces.walls.BottomWallRepulsionForce;
+import simulation.forces.exponentforces.walls.LeftWallRepulsionForce;
+import simulation.forces.exponentforces.walls.RightWallRepulsionForce;
+import simulation.forces.exponentforces.walls.TopWallRepulsionForce;
+import simulation.forces.exponentforces.walls.WallRepulsionForce;
 
 /**
  * XXX
