@@ -6,10 +6,10 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
 
-import simulation.elements.FixedMass;
-import simulation.elements.Mass;
-import simulation.elements.Muscle;
-import simulation.elements.Spring;
+import simulation.elements.masses.FixedMass;
+import simulation.elements.masses.Mass;
+import simulation.elements.springs.Muscle;
+import simulation.elements.springs.Spring;
 import simulation.forces.GravitationalForce;
 import simulation.forces.ViscousForce;
 import simulation.forces.exponentforces.CenterOfMassForce;

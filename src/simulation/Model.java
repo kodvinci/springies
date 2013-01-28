@@ -8,8 +8,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.ArrayList;
 
-import simulation.elements.Mass;
-import simulation.elements.Spring;
+import simulation.elements.masses.Mass;
+import simulation.elements.springs.Spring;
 import simulation.forces.Force;
 import view.Canvas;
 

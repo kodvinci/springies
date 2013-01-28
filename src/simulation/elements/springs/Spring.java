@@ -1,9 +1,10 @@
-package simulation.elements;
+package simulation.elements.springs;
 
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics2D;
 
+import simulation.elements.masses.Mass;
 import util.Location;
 import util.Pixmap;
 import util.Sprite;
@@ -19,10 +20,10 @@ public class Spring extends Sprite {
 	public static final Pixmap DEFUALT_IMAGE = new Pixmap("spring.gif");
 	public static final int IMAGE_HEIGHT = 20;
 
-	private Mass myStart;
-	private Mass myEnd;
-	private double myLength;
-	private double myK;
+	protected Mass myStart;
+	protected Mass myEnd;
+	protected double myLength;
+	protected double myK;
 
 	/**
 	 * XXX.

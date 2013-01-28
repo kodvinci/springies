@@ -2,7 +2,7 @@ package simulation.forces.exponentforces.walls;
 
 import java.awt.Dimension;
 
-import simulation.elements.Mass;
+import simulation.elements.masses.Mass;
 import simulation.forces.exponentforces.ExponentForce;
 import util.Vector;
 

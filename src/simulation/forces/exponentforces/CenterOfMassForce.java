@@ -3,7 +3,7 @@ package simulation.forces.exponentforces;
 import java.awt.Dimension;
 import java.util.Collection;
 
-import simulation.elements.Mass;
+import simulation.elements.masses.Mass;
 import util.Location;
 import util.Vector;
 
