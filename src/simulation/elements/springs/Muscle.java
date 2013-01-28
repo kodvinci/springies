@@ -32,21 +32,21 @@ public class Muscle extends Spring {
 	@Override
 	public void update(double elapsedTime, Dimension bounds)
 	{
-		myLength = restLength * (1 + ALPHA*BETA*Math.sin(OMEGA + PHI));
+		setMyLength(restLength * (1 + ALPHA*BETA*Math.sin(OMEGA + PHI)));
 		
-		double dx = myStart.getX() - myEnd.getX();
-		double dy = myStart.getY() - myEnd.getY();
+		double dx = myStart().getX() - myEnd().getX();
+		double dy = myStart().getY() - myEnd().getY();
 		
-		Vector force = new Vector(Vector.angleBetween(dx, dy), myK
-				* (myLength - Vector.distanceBetween(dx, dy)));
+		Vector force = new Vector(Vector.angleBetween(dx, dy), myK()
+				* (myLength() - Vector.distanceBetween(dx, dy)));
 		
-		myStart.applyForce(force);
+		myStart().applyForce(force);
 		force.negate();
-		myEnd.applyForce(force);
+		myEnd().applyForce(force);
 		
 		// update sprite values based on attached masses
-		setCenter(getCenter(myStart, myEnd));
-		setSize(getSize(myStart, myEnd));
+		setCenter(getCenter(myStart(), myEnd()));
+		setSize(getSize(myStart(), myEnd()));
 		setVelocity(Vector.angleBetween(dx, dy), 0);
 	}
 	
