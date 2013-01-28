@@ -76,14 +76,14 @@ public class Spring extends Sprite {
 			return Color.RED;
 	}
 
-	// compute center of this spring
-	private static Location getCenter(Mass start, Mass end) {
+	// compute center of this spring. (Was private)
+	public static Location getCenter(Mass start, Mass end) {
 		return new Location((start.getX() + end.getX()) / 2,
 				(start.getY() + end.getY()) / 2);
 	}
 
-	// compute size of this spring
-	private static Dimension getSize(Mass start, Mass end) {
+	// compute size of this spring. (Was private)
+	public static Dimension getSize(Mass start, Mass end) {
 		return new Dimension((int) start.distance(end), IMAGE_HEIGHT);
 	}
 }
