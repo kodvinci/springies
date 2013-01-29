@@ -2,7 +2,7 @@ package simulation.forces;
 
 import java.awt.Dimension;
 
-import simulation.elements.Mass;
+import simulation.elements.masses.Mass;
 import util.Vector;
 
 public class GravitationalForce extends Force {

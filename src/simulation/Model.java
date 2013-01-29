@@ -8,9 +8,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.ArrayList;
 
-import simulation.elements.Mass;
-import simulation.elements.Muscle;
-import simulation.elements.Spring;
+import simulation.elements.masses.Mass;
+import simulation.elements.springs.Spring;
 import simulation.forces.Force;
 import view.Canvas;
 
@@ -26,6 +25,7 @@ public class Model {
 	private List<Mass> myMasses;
 	private List<Spring> mySprings;
 	private Collection<Force> myForces;
+	
 	/**
 	 * Create a game of the given size with the given display for its shapes.
 	 */
@@ -114,7 +114,7 @@ public class Model {
 	 */
 	public void add(Spring spring) {
 		mySprings.add(spring);
-	}
+	}	
 	
 	/**
 	 * Add given force to this simulation.	

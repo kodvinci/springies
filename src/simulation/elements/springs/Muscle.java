@@ -1,7 +1,8 @@
-package simulation.elements;
+package simulation.elements.springs;
 
 import java.awt.Dimension;
 
+import simulation.elements.masses.Mass;
 import util.Vector;
 
 /**
@@ -19,41 +20,33 @@ public class Muscle extends Spring {
 	private double PHI = Math.PI/2; //Can take on 0, Math.PI/2, Math.PI/3, 3*Math.PI/4 radians
 	private double ALPHA = 1; // Assumes values between 1 and 0. relative amplitude
 	
-	private Mass myStart;
-	private Mass myEnd;
-	private double myLength;
-	private double myK;
 	private double restLength;
 	
 	public Muscle(Mass start, Mass end, double length, double kVal, double amplitude)
 	{
-		super(start, end, length, kVal);
-		
+		super(start, end, length, kVal);		
 		restLength = length;
-		myStart = start;
-		myEnd = end;
-		myK = kVal;
 		BETA = amplitude;
 	}
 	
 	@Override
 	public void update(double elapsedTime, Dimension bounds)
 	{
-		myLength = restLength * (1 + ALPHA*BETA*Math.sin(OMEGA + PHI));
+		setMyLength(restLength * (1 + ALPHA*BETA*Math.sin(OMEGA + PHI)));
 		
-		double dx = myStart.getX() - myEnd.getX();
-		double dy = myStart.getY() - myEnd.getY();
+		double dx = myStart().getX() - myEnd().getX();
+		double dy = myStart().getY() - myEnd().getY();
 		
-		Vector force = new Vector(Vector.angleBetween(dx, dy), myK
-				* (myLength - Vector.distanceBetween(dx, dy)));
+		Vector force = new Vector(Vector.angleBetween(dx, dy), myK()
+				* (myLength() - Vector.distanceBetween(dx, dy)));
 		
-		myStart.applyForce(force);
+		myStart().applyForce(force);
 		force.negate();
-		myEnd.applyForce(force);
+		myEnd().applyForce(force);
 		
 		// update sprite values based on attached masses
-		setCenter(getCenter(myStart, myEnd));
-		setSize(getSize(myStart, myEnd));
+		setCenter(getCenter(myStart(), myEnd()));
+		setSize(getSize(myStart(), myEnd()));
 		setVelocity(Vector.angleBetween(dx, dy), 0);
 	}
 	
