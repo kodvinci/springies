@@ -152,7 +152,7 @@ public class Factory {
 	}
 	
 	//create muscle from formatted data
-	private Muscle muscleCommand(Scanner line) {
+	private Spring muscleCommand(Scanner line) {
 		Mass m1 = myMasses.get(line.nextInt());
 		Mass m2 = myMasses.get(line.nextInt());
 		double restLength = line.nextDouble();
