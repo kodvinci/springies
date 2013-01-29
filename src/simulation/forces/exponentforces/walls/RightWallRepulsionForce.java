@@ -14,7 +14,7 @@ public class RightWallRepulsionForce extends WallRepulsionForce {
 
 	@Override
 	public Vector force(Mass m, Dimension bounds) {
-		double direction = Sprite.RIGHT_DIRECTION;
+		double direction = Sprite.LEFT_DIRECTION;
 		double distance = bounds.getWidth() - m.getX();
 		
 		return calculateExponentForce(m, bounds, direction, distance);
