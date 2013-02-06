@@ -17,13 +17,8 @@ public abstract class ExponentForce extends Force {
 
 	protected Vector calculateExponentForce(Mass m, Dimension bounds,
 			double direction, double distance) {
-		if (myExponent == 2.0) {
-			double magnitude = myMagnitude / (distance * distance);
-			return new Vector(direction, magnitude);
-		} else if (myExponent == 0.0) {
-			return new Vector(direction, myMagnitude);
-		}
-		return null;
+		double magnitude = myMagnitude / Math.pow(distance, myExponent);
+		return new Vector(direction, magnitude);
 	}
 
 	@Override

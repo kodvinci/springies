@@ -5,6 +5,10 @@ import java.awt.Dimension;
 import simulation.elements.masses.Mass;
 import util.Vector;
 
+/**
+ * 
+ * @author Erick Gonzalez
+ */
 public class GravitationalForce extends Force {
 	private Vector acceleration;
 
