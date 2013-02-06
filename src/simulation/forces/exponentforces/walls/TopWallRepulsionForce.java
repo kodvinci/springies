@@ -13,10 +13,10 @@ public class TopWallRepulsionForce extends WallRepulsionForce {
 	}
 
 	@Override
-	public Vector force(Mass m, Dimension bounds) {
+	public Vector getVectorRepresentation(Mass m, Dimension bounds) {
 		double direction = Sprite.DOWN_DIRECTION;
 		double distance = m.getY();
-		
+
 		return calculateExponentForce(m, bounds, direction, distance);
 	}
 }

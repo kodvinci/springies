@@ -4,22 +4,27 @@ import java.awt.Dimension;
 
 import simulation.elements.masses.Mass;
 import util.Vector;
+
 /**
+ * Represents a Force.
  * 
- * @author Leonard
- *
+ * @author Erick Gonzalez
  */
 public abstract class Force {
-	
-	
+
+	/**
+	 * Default constructor. Does nothing.
+	 */
 	public Force() {
-		
+
 	}
+
 	/**
 	 * 
 	 * @param m
 	 * @param bounds
 	 * @return
 	 */
-	public abstract Vector force(Mass m, Dimension bounds);
+	public abstract Vector getVectorRepresentation(Mass m, Dimension bounds);
+
 }

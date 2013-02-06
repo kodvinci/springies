@@ -2,7 +2,6 @@ package simulation.elements.springs;
 
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.Graphics2D;
 
 import simulation.elements.masses.Mass;
 import util.Location;
@@ -36,16 +35,6 @@ public class Spring extends Sprite {
 		myK = kVal;
 	}
 
-	/**
-	 * XXX.
-	 */
-/*	@Override
-	public void paint(Graphics2D pen) {
-		pen.setColor(getColor(myStart.distance(myEnd) - myLength));
-		pen.drawLine((int) myStart.getX(), (int) myStart.getY(),
-				(int) myEnd.getX(), (int) myEnd.getY());
-	}
-*/
 	/**
 	 * XXX.
 	 */
@@ -87,23 +76,23 @@ public class Spring extends Sprite {
 	public static Dimension getSize(Mass start, Mass end) {
 		return new Dimension((int) start.distance(end), IMAGE_HEIGHT);
 	}
-	
+
 	protected Mass myStart() {
 		return myStart;
 	}
-	
+
 	protected Mass myEnd() {
 		return myEnd;
 	}
-	
+
 	protected double myLength() {
 		return myLength;
 	}
-	
+
 	protected double myK() {
 		return myK;
 	}
-	
+
 	protected void setMyLength(double length) {
 		myLength = length;
 	}

@@ -13,7 +13,7 @@ public class ViscousForce extends Force {
 	}
 
 	@Override
-	public Vector force(Mass m, Dimension bounds) {
+	public Vector getVectorRepresentation(Mass m, Dimension bounds) {
 		Vector force = new Vector(m.getVelocity());
 		force.negate();
 		force.scale(scaleValue);
