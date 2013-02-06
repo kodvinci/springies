@@ -3,10 +3,8 @@ package simulation;
 import java.awt.Dimension;
 import java.awt.Graphics2D;
 import java.awt.Toolkit;
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.List;
 import java.util.ArrayList;
+import java.util.List;
 
 import simulation.elements.masses.Mass;
 import simulation.elements.springs.Spring;
@@ -14,9 +12,9 @@ import simulation.forces.Force;
 import view.Canvas;
 
 /**
- * XXX.
+ * Handles the state and updates for the Springies simulation. 
  * 
- * @author Robert C. Duvall
+ * @author Erick Gonzalez
  */
 public class Model {
 	// bounds and input for game
@@ -24,7 +22,7 @@ public class Model {
 	// simulation state
 	private List<Mass> myMasses;
 	private List<Spring> mySprings;
-	private Collection<Force> myForces;	
+	private List<Force> myForces;
 
 	/**
 	 * Create a game of the given size with the given display for its shapes.
@@ -33,7 +31,7 @@ public class Model {
 		myView = canvas;
 		myMasses = new ArrayList<Mass>();
 		mySprings = new ArrayList<Spring>();
-		myForces = new HashSet<Force>();		
+		myForces = new ArrayList<Force>();
 	}
 
 	/**
@@ -41,13 +39,13 @@ public class Model {
 	 */
 	public void paint(Graphics2D pen) {
 		paintSprings(pen);
-		paintMasses(pen);		
-		
+		paintMasses(pen);
+
 		// TODO: This smooths things out
 		Toolkit.getDefaultToolkit().sync();
 		pen.dispose();
 	}
-	
+
 	/**
 	 * Draws all springs of the simulation.
 	 */
@@ -56,9 +54,9 @@ public class Model {
 			s.paint(pen);
 		}
 	}
-	
+
 	/**
-	 * Draws all masses of the simulation. 
+	 * Draws all masses of the simulation.
 	 */
 	public void paintMasses(Graphics2D pen) {
 		for (Mass m : myMasses) {
@@ -69,11 +67,11 @@ public class Model {
 	/**
 	 * Update simulation for this moment, given the time since the last moment.
 	 */
-	public void update(double elapsedTime) {		
+	public void update(double elapsedTime) {
 		updateSprings(elapsedTime, myView.getSize());
-		updateMasses(elapsedTime, myView.getSize());	
+		updateMasses(elapsedTime, myView.getSize());
 	}
-	
+
 	/**
 	 * Update springs in the simulation.
 	 */
@@ -82,21 +80,21 @@ public class Model {
 			s.update(elapsedTime, bounds);
 		}
 	}
-	
+
 	/**
 	 * Update masses in the simulation.
 	 */
 	public void updateMasses(double elapsedTime, Dimension bounds) {
 		for (Mass m : myMasses) {
-			applyEnvironmentalForces(m, elapsedTime, bounds);
+			applyEnvironmentalForces(m, bounds);
 			m.update(elapsedTime, bounds);
 		}
 	}
-	
+
 	/**
 	 * Applies all forces in the environment to a given mass.
 	 */
-	public void applyEnvironmentalForces(Mass m, double elapsedTime, Dimension bounds) {
+	public void applyEnvironmentalForces(Mass m, Dimension bounds) {
 		for (Force f : myForces) {
 			m.applyForce(f.force(m, bounds));
 		}
@@ -114,10 +112,10 @@ public class Model {
 	 */
 	public void add(Spring spring) {
 		mySprings.add(spring);
-	}	
-	
+	}
+
 	/**
-	 * Add given force to this simulation.	
+	 * Add given force to this simulation.
 	 */
 	public void add(Force f) {
 		myForces.add(f);

@@ -16,7 +16,7 @@ public class BottomWallRepulsionForce extends WallRepulsionForce {
 	public Vector force(Mass m, Dimension bounds) {
 		double direction = Sprite.UP_DIRECTION;
 		double distance = bounds.getHeight() - m.getY();
-		
+
 		return calculateExponentForce(m, bounds, direction, distance);
 	}
 }

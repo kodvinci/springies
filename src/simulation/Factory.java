@@ -33,7 +33,7 @@ public class Factory {
 	private static final String CENTER_MASS_KEYWORD = "centermass";
 	private static final String WALL_REPULSION_KEYWORD = "wall";
 	private static final String MUSCLE_KEYWORD = "muscle";
-	
+
 	// mass IDs
 	Map<Integer, Mass> myMasses = new HashMap<Integer, Mass>();
 
@@ -54,7 +54,7 @@ public class Factory {
 					} else if (MUSCLE_KEYWORD.equals(type)) {
 						model.add(muscleCommand(line));
 					}
-					
+
 				}
 			}
 			input.close();
@@ -136,8 +136,8 @@ public class Factory {
 		if (mass >= 0) {
 			result = new Mass(x, y, mass);
 		} else {
-			result = new FixedMass(x, y, mass); 
-		}		
+			result = new FixedMass(x, y, mass);
+		}
 		myMasses.put(id, result);
 		return result;
 	}
@@ -150,8 +150,8 @@ public class Factory {
 		double ks = line.nextDouble();
 		return new Spring(m1, m2, restLength, ks);
 	}
-	
-	//create muscle from formatted data
+
+	// create muscle from formatted data
 	private Spring muscleCommand(Scanner line) {
 		Mass m1 = myMasses.get(line.nextInt());
 		Mass m2 = myMasses.get(line.nextInt());
@@ -160,5 +160,5 @@ public class Factory {
 		double amp = line.nextDouble();
 		return new Muscle(m1, m2, restLength, ks, amp);
 	}
-	
+
 }

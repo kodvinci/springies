@@ -16,7 +16,7 @@ public class CenterOfMassForce extends ExponentForce {
 		myMasses = masses;
 	}
 
-	private static Location calculateCenterOfMass(Collection<Mass> masses) {
+	private Location calculateCenterOfMass(Collection<Mass> masses) {
 		double totalMass = 0;
 		double momentX = 0;
 		double momentY = 0;
@@ -37,10 +37,11 @@ public class CenterOfMassForce extends ExponentForce {
 	public Vector force(Mass m, Dimension bounds) {
 		Location massLocation = new Location(m.getX(), m.getY());
 		Location centerOfMassLocation = calculateCenterOfMass(myMasses);
-		double direction = Vector.angleBetween(centerOfMassLocation, massLocation);
+		double direction = Vector.angleBetween(centerOfMassLocation,
+				massLocation);
 		double distance = Vector.distanceBetween(massLocation,
-					centerOfMassLocation);
-		
+				centerOfMassLocation);
+
 		return calculateExponentForce(m, bounds, direction, distance);
 	}
 }
