@@ -35,10 +35,12 @@ public class Vector {
 	 * and distance between the two given points.
 	 */
 	public Vector(Point2D source, Point2D target) {
-		double dx = target.getX() - source.getX();
+		/*double dx = target.getX() - source.getX();
 		double dy = source.getY() - target.getY();
 		setDirection(angleBetween(dx, dy));
-		setMagnitude(distanceBetween(dx, dy));
+		setMagnitude(distanceBetween(dx, dy));*/
+        this(angleBetween(target, source),
+                distanceBetween(target, source));
 	}
 
 	/**
@@ -70,8 +72,7 @@ public class Vector {
 	 * given other vector.
 	 */
 	public double getRelativeMagnitude(Vector other) {
-		return -getMagnitude()
-				* Math.cos(Math.toRadians(getAngleBetween(other)));
+		return -getMagnitude() * Math.cos(Math.toRadians(getAngleBetween(other)));
 	}
 
 	/**
@@ -118,7 +119,7 @@ public class Vector {
 	// setDirection(getDirection() + change);
 	// }
 	public void turn(double change) {
-		setDirection((getDirection() + change) % 360);
+		setDirection(getDirection() + change);
 	}
 
 	/**
