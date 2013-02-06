@@ -6,14 +6,14 @@ import simulation.elements.masses.Mass;
 import util.Vector;
 
 /**
- * Represents a Force.  
+ * Represents a Force.
  * 
  * @author Erick Gonzalez
  */
 public abstract class Force {
 
 	/**
-	 * Default constructor. Does nothing.   
+	 * Default constructor. Does nothing.
 	 */
 	public Force() {
 

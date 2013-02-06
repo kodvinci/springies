@@ -1,8 +1,6 @@
 package simulation.elements.masses;
 
-import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.Graphics2D;
 
 import util.Location;
 import util.Pixmap;
@@ -44,16 +42,6 @@ public class Mass extends Sprite {
 		super.update(elapsedTime, bounds);
 	}
 
-	/**
-	 * XXX.
-	 */
-/*	@Override
-	public void paint(Graphics2D pen) {
-		pen.setColor(Color.BLACK);
-		pen.fillOval((int) getLeft(), (int) getTop(), (int) getWidth(),
-				(int) getHeight());
-	}
-*/
 	/**
 	 * Use the given force to change this mass's acceleration.
 	 */

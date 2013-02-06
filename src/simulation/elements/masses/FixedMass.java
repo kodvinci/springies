@@ -3,7 +3,7 @@ package simulation.elements.masses;
 import util.Vector;
 
 /**
- * Model class for a fixed mass element. 
+ * Model class for a fixed mass element.
  * 
  * @author Erick Gonzalez
  */

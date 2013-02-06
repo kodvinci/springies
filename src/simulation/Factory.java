@@ -48,11 +48,11 @@ public class Factory {
 				if (line.hasNext()) {
 					String type = line.next();
 					if (MASS_KEYWORD.equals(type)) {
-						model.add(massCommand(line));
+						model.add(createMass(line));
 					} else if (SPRING_KEYWORD.equals(type)) {
-						model.add(springCommand(line));
+						model.add(createSpring(line));
 					} else if (MUSCLE_KEYWORD.equals(type)) {
-						model.add(muscleCommand(line));
+						model.add(createMuscle(line));
 					}
 
 				}
@@ -72,13 +72,13 @@ public class Factory {
 				if (line.hasNext()) {
 					String type = line.next();
 					if (GRAVITY_KEYWORD.equals(type)) {
-						model.add(gravityCommand(line));
+						model.add(createGravitationalForce(line));
 					} else if (VISCOSITY_KEYWORD.equals(type)) {
-						model.add(viscosityCommand(line));
+						model.add(createViscosityForce(line));
 					} else if (CENTER_MASS_KEYWORD.equals(type)) {
-						model.add(centerMassCommand(line));
+						model.add(createCenterOfMassForce(line));
 					} else if (WALL_REPULSION_KEYWORD.equals(type)) {
-						model.add(wallRepulsionCommand(line));
+						model.add(createWallRepulsionForce(line));
 					}
 				}
 			}
@@ -89,7 +89,7 @@ public class Factory {
 		}
 	}
 
-	private WallRepulsionForce wallRepulsionCommand(Scanner line) {
+	private WallRepulsionForce createWallRepulsionForce(Scanner line) {
 		int wallId = line.nextInt();
 		double magnitude = line.nextDouble();
 		double exponent = line.nextDouble();
@@ -108,26 +108,26 @@ public class Factory {
 		}
 	}
 
-	private CenterOfMassForce centerMassCommand(Scanner line) {
+	private CenterOfMassForce createCenterOfMassForce(Scanner line) {
 		double magnitude = line.nextDouble();
 		double exponent = line.nextDouble();
 		return new CenterOfMassForce(myMasses.values(), magnitude, exponent);
 	}
 
 	// create gravity from formatted data
-	private GravitationalForce gravityCommand(Scanner line) {
+	private GravitationalForce createGravitationalForce(Scanner line) {
 		double angle = line.nextDouble();
 		double magnitude = line.nextDouble();
 		return new GravitationalForce(angle, magnitude);
 	}
 
-	private ViscousForce viscosityCommand(Scanner line) {
+	private ViscousForce createViscosityForce(Scanner line) {
 		double scaleValue = line.nextDouble();
 		return new ViscousForce(scaleValue);
 	}
 
 	// create mass from formatted data
-	private Mass massCommand(Scanner line) {
+	private Mass createMass(Scanner line) {
 		int id = line.nextInt();
 		double x = line.nextDouble();
 		double y = line.nextDouble();
@@ -143,7 +143,7 @@ public class Factory {
 	}
 
 	// create spring from formatted data
-	private Spring springCommand(Scanner line) {
+	private Spring createSpring(Scanner line) {
 		Mass m1 = myMasses.get(line.nextInt());
 		Mass m2 = myMasses.get(line.nextInt());
 		double restLength = line.nextDouble();
@@ -152,7 +152,7 @@ public class Factory {
 	}
 
 	// create muscle from formatted data
-	private Spring muscleCommand(Scanner line) {
+	private Spring createMuscle(Scanner line) {
 		Mass m1 = myMasses.get(line.nextInt());
 		Mass m2 = myMasses.get(line.nextInt());
 		double restLength = line.nextDouble();

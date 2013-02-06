@@ -52,7 +52,6 @@ public class Pixmap {
 		paint(pen, center, size, 0);
 	}
 
-<<<<<<< HEAD
 	/**
 	 * Describes how to draw the image rotated on the screen.
 	 */
@@ -63,7 +62,7 @@ public class Pixmap {
 		// move graphics area to center of this shape
 		pen.translate(center.getX(), center.getY());
 		// rotate area about this shape
-		pen.rotate(angle);
+		pen.rotate(Math.toRadians(angle));
 		// draw as usual (i.e., rotated)
 		pen.drawImage(myImage, -size.width / 2, -size.height / 2, size.width,
 				size.height, null);
@@ -71,21 +70,5 @@ public class Pixmap {
 		// lasting effects
 		pen.setTransform(old);
 	}
-=======
-    /**
-     * Describes how to draw the image rotated on the screen.
-     */
-    public void paint (Graphics2D pen, Point2D center, Dimension size, double angle) {
-        // save current state of the graphics area
-        AffineTransform old = new AffineTransform(pen.getTransform());
-        // move graphics area to center of this shape
-        pen.translate(center.getX(), center.getY());
-        // rotate area about this shape
-        pen.rotate(Math.toRadians(angle));
-        // draw as usual (i.e., rotated)
-        pen.drawImage(myImage, -size.width / 2, -size.height / 2, size.width, size.height, null);
-        // restore graphics area to its old state, so our changes have no lasting effects
-        pen.setTransform(old);
-    }
->>>>>>> 414d90b25aa37dbeb62ea026018bfd7d1344d39c
+
 }
