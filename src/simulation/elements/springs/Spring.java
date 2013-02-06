@@ -47,7 +47,7 @@ public class Spring extends Sprite {
 				* (myLength - Vector.distanceBetween(dx, dy)));
 		myStart.applyForce(force);
 		force.negate();
-		myEnd.applyForce(force);
+		myEnd.applyForce(force);		
 		// update sprite values based on attached masses
 		setCenter(getCenter(myStart, myEnd));
 		setSize(getSize(myStart, myEnd));

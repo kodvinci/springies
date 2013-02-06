@@ -2,6 +2,7 @@ package simulation.elements.masses;
 
 import java.awt.Dimension;
 
+import simulation.forces.BounceForce;
 import simulation.forces.Force;
 import util.Location;
 import util.Pixmap;
@@ -9,20 +10,28 @@ import util.Sprite;
 import util.Vector;
 
 /**
- * XXX.
+ * A class that represents a mass on the canvas.
  * 
  * @author Robert C. Duvall
+ * @author Erick Gonzalez
  */
 public class Mass extends Sprite {
 	// reasonable default values
 	public static final Dimension DEFAULT_SIZE = new Dimension(16, 16);
 	public static final Pixmap DEFUALT_IMAGE = new Pixmap("mass.gif");
+	public static final double DEFAULT_WALL_BOUNCE_MAGNITUDE = 2.0;
 
 	private double myMass;
 	private Vector myAcceleration;
 
 	/**
-	 * XXX.
+	 * Create a mass at the given location
+	 * 
+	 * @param x
+	 *            x-coordinate
+	 * @param y
+	 *            y-coordinate
+	 * @param mass
 	 */
 	public Mass(double x, double y, double mass) {
 		super(DEFUALT_IMAGE, new Location(x, y), DEFAULT_SIZE);
@@ -30,12 +39,9 @@ public class Mass extends Sprite {
 		myAcceleration = new Vector();
 	}
 
-	/**
-	 * XXX.
-	 */
 	@Override
 	public void update(double elapsedTime, Dimension bounds) {
-		applyForce(getBounce(bounds));
+		applyForce(new BounceForce(DEFAULT_WALL_BOUNCE_MAGNITUDE), bounds);
 		// convert force back into Mover's velocity
 		getVelocity().sum(myAcceleration);
 		myAcceleration.reset();
@@ -43,19 +49,32 @@ public class Mass extends Sprite {
 		super.update(elapsedTime, bounds);
 	}
 
-	public void applyForce(Force f, Dimension bounds) {
+	/**
+	 * Apply a force to this mass with the given bounds of the canvas where this
+	 * force will be present.
+	 * 
+	 * @param f
+	 * @param bounds
+	 *            bounds of the canvas where the force is present
+	 */
+	public void applyForce(Force f, Dimension bounds) {		
 		applyForce(f.getVectorRepresentation(this, bounds));
 	}
-
+	
 	/**
-	 * Use the given force to change this mass's acceleration.
+	 * Apply the vector representation of a force to this mass.
+	 * 
+	 * @param v
 	 */
-	public void applyForce(Vector force) {
-		myAcceleration.sum(force);
+	public void applyForce(Vector v) {
+		myAcceleration.sum(v);
 	}
 
 	/**
-	 * Convenience method.
+	 * Convenience method. Finds distance between this mass and another.
+	 * 
+	 * @param other
+	 * @return distance between this mass and other
 	 */
 	public double distance(Mass other) {
 		// this is a little awkward, so hide it
@@ -63,24 +82,10 @@ public class Mass extends Sprite {
 				other.getY()));
 	}
 
-	// check for move out of bounds
-	private Vector getBounce(Dimension bounds) {
-		final double IMPULSE_MAGNITUDE = 2;
-		Vector impulse = new Vector();
-		if (getLeft() < 0) {
-			impulse = new Vector(RIGHT_DIRECTION, IMPULSE_MAGNITUDE);
-		} else if (getRight() > bounds.width) {
-			impulse = new Vector(LEFT_DIRECTION, IMPULSE_MAGNITUDE);
-		}
-		if (getTop() < 0) {
-			impulse = new Vector(DOWN_DIRECTION, IMPULSE_MAGNITUDE);
-		} else if (getBottom() > bounds.height) {
-			impulse = new Vector(UP_DIRECTION, IMPULSE_MAGNITUDE);
-		}
-		impulse.scale(getVelocity().getRelativeMagnitude(impulse));
-		return impulse;
-	}
-
+	/**
+	 * 
+	 * @return mass value
+	 */
 	public double getMass() {
 		return myMass;
 	}
