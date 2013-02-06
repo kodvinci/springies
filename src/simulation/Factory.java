@@ -20,9 +20,11 @@ import simulation.forces.exponentforces.walls.TopWallRepulsionForce;
 import simulation.forces.exponentforces.walls.WallRepulsionForce;
 
 /**
- * XXX
+ * A factory class that parses an input file containing different elements or
+ * forces and creates in-memory representations of them.
  * 
  * @author Robert C. Duvall
+ * @author Erick Gonzalez
  */
 public class Factory {
 	// data file keywords
@@ -38,9 +40,12 @@ public class Factory {
 	Map<Integer, Mass> myMasses = new HashMap<Integer, Mass>();
 
 	/**
-	 * XXX.
+	 * 
+	 * 
+	 * @param model the model
+	 * @param modelFile formatted file from which 
 	 */
-	public void loadModel(Model model, File modelFile) {
+	public void loadElements(Model model, File modelFile) {
 		try {
 			Scanner input = new Scanner(modelFile);
 			while (input.hasNext()) {
@@ -64,7 +69,7 @@ public class Factory {
 		}
 	}
 
-	public void loadEnvironment(Model model, File modelFile) {
+	public void loadForces(Model model, File modelFile) {
 		try {
 			Scanner input = new Scanner(modelFile);
 			while (input.hasNext()) {
@@ -114,7 +119,6 @@ public class Factory {
 		return new CenterOfMassForce(myMasses.values(), magnitude, exponent);
 	}
 
-	// create gravity from formatted data
 	private GravitationalForce createGravitationalForce(Scanner line) {
 		double angle = line.nextDouble();
 		double magnitude = line.nextDouble();
@@ -126,7 +130,6 @@ public class Factory {
 		return new ViscousForce(scaleValue);
 	}
 
-	// create mass from formatted data
 	private Mass createMass(Scanner line) {
 		int id = line.nextInt();
 		double x = line.nextDouble();
@@ -142,7 +145,6 @@ public class Factory {
 		return result;
 	}
 
-	// create spring from formatted data
 	private Spring createSpring(Scanner line) {
 		Mass m1 = myMasses.get(line.nextInt());
 		Mass m2 = myMasses.get(line.nextInt());
@@ -151,7 +153,6 @@ public class Factory {
 		return new Spring(m1, m2, restLength, ks);
 	}
 
-	// create muscle from formatted data
 	private Spring createMuscle(Scanner line) {
 		Mass m1 = myMasses.get(line.nextInt());
 		Mass m2 = myMasses.get(line.nextInt());
