@@ -88,7 +88,7 @@ public class Model {
 	 */
 	public void updateMasses(double elapsedTime, Dimension bounds) {
 		for (Mass m : myMasses) {
-			applyEnvironmentalForces(m, elapsedTime, bounds);
+			applyEnvironmentalForces(m, bounds);
 			m.update(elapsedTime, bounds);
 		}
 	}
@@ -96,7 +96,7 @@ public class Model {
 	/**
 	 * Applies all forces in the environment to a given mass.
 	 */
-	public void applyEnvironmentalForces(Mass m, double elapsedTime, Dimension bounds) {
+	public void applyEnvironmentalForces(Mass m, Dimension bounds) {
 		for (Force f : myForces) {
 			m.applyForce(f.force(m, bounds));
 		}

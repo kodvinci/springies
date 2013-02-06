@@ -10,15 +10,15 @@ import util.Vector;
  * contracting and expanding the spring's rest length in a harmonic motion.
  * Length of muscle ranges from 0 to twice the original length
  * 
- * @author Leonard
+ * @author Leonard & Erick 
  *
  */
 public class Muscle extends Spring {
 	//default values
-	private double BETA; //Takes on values between 0 and 1. Fixes wave amplitude
-	private double OMEGA = 30; //Speed of oscillation of muscles
-	private double PHI = Math.PI/2; //Can take on 0, Math.PI/2, Math.PI/3, 3*Math.PI/4 radians
-	private double ALPHA = 1; // Assumes values between 1 and 0. relative amplitude
+	private static double myBeta; //Takes on values between 0 and 1. Fixes wave amplitude
+	private static final double OMEGA = 30; //Speed of oscillation of muscles
+	private static final double PHI = Math.PI/2; //Can take on the values 0, Math.PI/2, Math.PI/3, 3*Math.PI/4 
+	private static final double ALPHA = 1; // Assumes values between 1 and 0. Relative amplitude
 	
 	private double restLength;
 	
@@ -26,13 +26,13 @@ public class Muscle extends Spring {
 	{
 		super(start, end, length, kVal);		
 		restLength = length;
-		BETA = amplitude;
+		myBeta = amplitude;
 	}
 	
 	@Override
 	public void update(double elapsedTime, Dimension bounds)
 	{
-		setMyLength(restLength * (1 + ALPHA*BETA*Math.sin(OMEGA + PHI)));
+		setMyLength(restLength * (1 + ALPHA*myBeta*Math.sin(OMEGA + PHI)));
 		
 		double dx = myStart().getX() - myEnd().getX();
 		double dy = myStart().getY() - myEnd().getY();
