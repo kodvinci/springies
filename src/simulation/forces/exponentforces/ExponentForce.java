@@ -22,5 +22,5 @@ public abstract class ExponentForce extends Force {
 	}
 
 	@Override
-	public abstract Vector force(Mass m, Dimension bounds);
+	public abstract Vector getVectorRepresentation(Mass m, Dimension bounds);
 }

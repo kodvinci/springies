@@ -25,5 +25,5 @@ public abstract class Force {
 	 * @param bounds
 	 * @return
 	 */
-	public abstract Vector force(Mass m, Dimension bounds);
+	public abstract Vector getVectorRepresentation(Mass m, Dimension bounds);
 }

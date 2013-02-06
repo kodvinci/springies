@@ -17,7 +17,7 @@ public class GravitationalForce extends Force {
 	}
 
 	@Override
-	public Vector force(Mass m, Dimension bounds) {
+	public Vector getVectorRepresentation(Mass m, Dimension bounds) {
 		Vector forceOfGravity = new Vector(acceleration);
 		forceOfGravity.scale(m.getMass());
 		return forceOfGravity;

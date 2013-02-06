@@ -13,7 +13,7 @@ public class LeftWallRepulsionForce extends WallRepulsionForce {
 	}
 
 	@Override
-	public Vector force(Mass m, Dimension bounds) {
+	public Vector getVectorRepresentation(Mass m, Dimension bounds) {
 		double direction = Sprite.RIGHT_DIRECTION;
 		double distance = m.getX();
 

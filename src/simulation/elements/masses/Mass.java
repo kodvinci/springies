@@ -2,6 +2,7 @@ package simulation.elements.masses;
 
 import java.awt.Dimension;
 
+import simulation.forces.Force;
 import util.Location;
 import util.Pixmap;
 import util.Sprite;
@@ -42,14 +43,14 @@ public class Mass extends Sprite {
 		super.update(elapsedTime, bounds);
 	}
 
+	public void applyForce(Force f, Dimension bounds) {
+		applyForce(f.getVectorRepresentation(this, bounds));
+	}
+
 	/**
 	 * Use the given force to change this mass's acceleration.
 	 */
 	public void applyForce(Vector force) {
-		// TODO: do we really need this?
-		if (force == null)
-			return;
-
 		myAcceleration.sum(force);
 	}
 

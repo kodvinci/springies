@@ -96,7 +96,7 @@ public class Model {
 	 */
 	public void applyEnvironmentalForces(Mass m, Dimension bounds) {
 		for (Force f : myForces) {
-			m.applyForce(f.force(m, bounds));
+			m.applyForce(f, bounds);
 		}
 	}
 

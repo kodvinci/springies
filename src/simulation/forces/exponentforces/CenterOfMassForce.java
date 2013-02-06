@@ -34,7 +34,7 @@ public class CenterOfMassForce extends ExponentForce {
 	}
 
 	@Override
-	public Vector force(Mass m, Dimension bounds) {
+	public Vector getVectorRepresentation(Mass m, Dimension bounds) {
 		Location massLocation = new Location(m.getX(), m.getY());
 		Location centerOfMassLocation = calculateCenterOfMass(myMasses);
 		double direction = Vector.angleBetween(centerOfMassLocation,
