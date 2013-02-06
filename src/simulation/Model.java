@@ -40,7 +40,7 @@ public class Model {
 	public void paint(Graphics2D pen) {
 		paintSprings(pen);
 		paintMasses(pen);
-
+		
 		// TODO: This smooths things out
 		Toolkit.getDefaultToolkit().sync();
 		pen.dispose();
