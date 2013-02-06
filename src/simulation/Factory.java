@@ -40,10 +40,12 @@ public class Factory {
 	Map<Integer, Mass> myMasses = new HashMap<Integer, Mass>();
 
 	/**
+	 * Parses elements from a formatted file and stores them.
 	 * 
-	 * 
-	 * @param model the model
-	 * @param modelFile formatted file from which 
+	 * @param model
+	 *            the model where elements will be stored
+	 * @param modelFile
+	 *            formatted file from which elements are parsed
 	 */
 	public void loadElements(Model model, File modelFile) {
 		try {
@@ -69,6 +71,14 @@ public class Factory {
 		}
 	}
 
+	/**
+	 * Parses forces from a formatted file and stores them.
+	 * 
+	 * @param model
+	 *            the model where elements will be stored
+	 * @param modelFile
+	 *            formatted file from which forces are parsed
+	 */
 	public void loadForces(Model model, File modelFile) {
 		try {
 			Scanner input = new Scanner(modelFile);
