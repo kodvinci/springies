@@ -8,7 +8,7 @@
 
 This project demonstrates how masses and springs interact with each other 
 when various forces are applied on them. Such forces include gravity, center
-of mass, viscosity and wall forces
+of mass, viscosity and wall forces. 
 
 The project is organized into various packages that perform particular functions.
 
@@ -61,25 +61,48 @@ varies based on a number of factors such as its amplitude and oscillation.
 	4. Simulation.forces
 This package contains Force classes.
 
-	a. Force
+		a. Force
 An abstract class that represents a force. It has one abstract method, 
 getVectorRepresentation, that gives the vector representation of this force. The 
 force can be applied to a mass within some given bounds.
 
-	b. BoundsForce 
+		b. BoundsForce 
 A subclass of Force. It is the force that is responsible for bouncing masses off 
 a wall when they come into contact with. Its implementation of the 
 getVectorRepresentation method entails creating an impulsive force that pushes 
 the mass in the opposite direction.
 
-	c. GravitationalForce
+		c. GravitationalForce
 A subclass of the Force class that represents the force of gravity. Its 
 getVectorRepresentation method simply creates a force that is proportional 
 to the mass of the Mass object, i.e. a scaled value of its magnitude.
 
-	d. ViscousForce
+		d. ViscousForce
 A subclass of Force that represents a resistive force that acts in the opposite 
 direction of a mass's velocity. Its getVectorRepresentation method simply negates
 the velocity of the given mass and then scales it by a given value.
 
 	5. Simulation.forces.exponentforces
+This package contains forces who magnitudes vary inversely with the distance
+
+		a. ExponentForce class
+Inherits from Force class. If the exponent of the force is 2.0, the magnitude
+of the force varies inversely with distance. 
+
+		b. CenterOfMassForce
+Extends ExponentForce class. The center of mass force calculates the center 
+of mass among a group of masses and then imposes a force on each mass that 
+brings it closer to the center of mass.
+
+	6. Simulation.forces.exponentforces.walls
+This package contains forces exerted by the walls on the masses and springs
+
+		WallRepulsionForce class
+Extends ExponentForce class. Abstract class representing the repulsion forces
+of the walls. Forces the mass to change direction.
+
+The following classes implement the WallRepulsionForce class:
+a. TopWallRepulsionForce - repulsion force of top wall. Acts downwards
+b. BottomWallRepulsionForce - repulsion force of the bottom wall. Acts upwards
+c. LeftWallReplsuionForce - repulsion force of the left wall. Acts rightwards
+d. RightWallRepulsionForce - repulsion force of the right wall. Acts leftwards
