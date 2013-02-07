@@ -6,10 +6,21 @@ import simulation.elements.masses.Mass;
 import util.Sprite;
 import util.Vector;
 
+/**
+ * A force that is responsible for bouncing masses off a wall that they come
+ * into contact with.
+ * 
+ * @author Erick Gonzalez
+ */
 public class BounceForce extends Force {
 
 	private double myImpulseMagnitude;
 
+	/**
+	 * Creates bounce force with given magnitude.
+	 * 
+	 * @param impulseMagnitude
+	 */
 	public BounceForce(double impulseMagnitude) {
 		myImpulseMagnitude = impulseMagnitude;
 	}

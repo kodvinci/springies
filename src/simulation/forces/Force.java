@@ -20,6 +20,8 @@ public abstract class Force {
 	}
 
 	/**
+	 * Gets the vector representation of this force that will be applied to some
+	 * mass within some bounds provided.
 	 * 
 	 * @param m
 	 * @param bounds

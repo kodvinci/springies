@@ -7,9 +7,24 @@ import simulation.elements.masses.Mass;
 import util.Location;
 import util.Vector;
 
+/**
+ * The center of mass force calculates the center of mass among a group of
+ * masses and then imposes a force on each mass that brings it closer to the
+ * center of mass.
+ * 
+ * @author Erick Gonzalez
+ */
 public class CenterOfMassForce extends ExponentForce {
 	private Collection<Mass> myMasses;
 
+	/**
+	 * Creates a center of mass force with a given set of masses, a magnitude,
+	 * and exponent.
+	 * 
+	 * @param masses
+	 * @param magnitude
+	 * @param exponent
+	 */
 	public CenterOfMassForce(Collection<Mass> masses, double magnitude,
 			double exponent) {
 		super(magnitude, exponent);
