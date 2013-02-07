@@ -16,7 +16,7 @@ This package handles the reading of the input files containing the data for the
 simulation. It then parses the input, stores them in various data structures
 and then regularly paints them on the display screen. 
 
-	a. Factory Class
+		a. Factory Class
 Reads the input files and stores the data based on the key word that appears as 
 the first item in every line. 
 
@@ -28,7 +28,7 @@ in the Model class.
 The file containing the environment forces is then read next and its data 
 manipulated in the same way that the masses and springs were dealt with.
 
-	b. Model Class	
+		b. Model Class	
 This class draws and regularly updates the elements of the game on the given Canvas.
 It also applies the environmental forces on the masses. The masses and springs are 
 held in Lists while the forces are stored in Collections. The major methods are:
@@ -37,3 +37,21 @@ held in Lists while the forces are stored in Collections. The major methods are:
 3. applyEnvironmentalForces - applies the given force to the given mass
 
 	2. Simulation.elements.masses Package
+It has two classes, Mass and FixedMass class. The Mass class creates a mass object 
+that a force can act on, i.e. force can be applied to the mass and as a result 
+change its acceleration.
+
+The FixedMass class is a subclass of the Mass class. The major difference between it 
+and the Mass class is that it does not respond to any force that is applied to it.
+
+	3. simulation.elements.springs
+This package contains classes that represent objects that connect two mass objects.
+
+		a. Spring
+The Spring class is a subclass of the Sprite class. It overrides its update method,
+and implements it by creating a force based on the distance and angles between
+the two masses it connects. It then applies that force on the masses.
+		b. Muscle
+This class extends the Spring class. It overrides its update method. The major 
+difference between it and the Spring class is that the length of the muscle
+varies based on a number of factors such as its amplitude and oscillation. 

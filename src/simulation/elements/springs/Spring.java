@@ -10,7 +10,7 @@ import util.Sprite;
 import util.Vector;
 
 /**
- * XXX.
+ * Creates a spring object.
  * 
  * @author Robert C. Duvall
  */
@@ -24,9 +24,13 @@ public class Spring extends Sprite {
 	private double myLength;
 	private double myK;
 
-	/**
-	 * XXX.
-	 */
+/**
+ * 
+ * @param start
+ * @param end
+ * @param length
+ * @param kVal
+ */
 	public Spring(Mass start, Mass end, double length, double kVal) {
 		super(DEFUALT_IMAGE, getCenter(start, end), getSize(start, end));
 		myStart = start;
@@ -35,10 +39,10 @@ public class Spring extends Sprite {
 		myK = kVal;
 	}
 
-	/**
-	 * XXX.
-	 */
 	@Override
+	/**
+	 * 
+	 */
 	public void update(double elapsedTime, Dimension bounds) {
 		double dx = myStart.getX() - myEnd.getX();
 		double dy = myStart.getY() - myEnd.getY();
@@ -66,13 +70,13 @@ public class Spring extends Sprite {
 			return Color.RED;
 	}
 
-	// compute center of this spring. (Was private)
+	// compute center of this spring.
 	public static Location getCenter(Mass start, Mass end) {
 		return new Location((start.getX() + end.getX()) / 2,
 				(start.getY() + end.getY()) / 2);
 	}
 
-	// compute size of this spring. (Was private)
+	// compute size of this spring. 
 	public static Dimension getSize(Mass start, Mass end) {
 		return new Dimension((int) start.distance(end), IMAGE_HEIGHT);
 	}
