@@ -6,6 +6,11 @@ import simulation.elements.masses.Mass;
 import util.Sprite;
 import util.Vector;
 
+/**
+ * Represents a repulsion force imposed by the top wall.
+ * 
+ * @author Erick Gonzalez
+ */
 public class TopWallRepulsionForce extends WallRepulsionForce {
 
 	public TopWallRepulsionForce(double magnitude, double exponent) {

@@ -6,6 +6,11 @@ import simulation.elements.masses.Mass;
 import util.Sprite;
 import util.Vector;
 
+/**
+ * Represents repulsion force imposed by the right wall.
+ * 
+ * @author Erick Gonzalez
+ */
 public class RightWallRepulsionForce extends WallRepulsionForce {
 
 	public RightWallRepulsionForce(double magnitude, double exponent) {

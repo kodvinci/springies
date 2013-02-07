@@ -6,6 +6,11 @@ import simulation.elements.masses.Mass;
 import simulation.forces.exponentforces.ExponentForce;
 import util.Vector;
 
+/**
+ * Abstract representation of wall repulsion force.
+ * 
+ * @author Erick Gonzalez
+ */
 public abstract class WallRepulsionForce extends ExponentForce {
 
 	public WallRepulsionForce(double magnitude, double exponent) {

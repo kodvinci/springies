@@ -32,7 +32,7 @@ public class FixedMass extends Mass {
 	public void applyForce(Force f, Dimension bounds) {
 		// do nothing when force is applied
 	}
-	
+
 	@Override
 	public void applyForce(Vector v) {
 		// do nothing when force is applied
