@@ -192,8 +192,7 @@ public class Canvas extends JComponent {
 		if (response == JFileChooser.APPROVE_OPTION) {
 			factory.loadElements(mySimulation, INPUT_CHOOSER.getSelectedFile());
 		}
-
-		// TODO: Fix this later
+		
 		int response2 = INPUT_CHOOSER.showOpenDialog(null);
 		if (response2 == JFileChooser.APPROVE_OPTION) {
 			factory.loadForces(mySimulation, INPUT_CHOOSER.getSelectedFile());
