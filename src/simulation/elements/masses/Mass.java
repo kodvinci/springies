@@ -57,10 +57,10 @@ public class Mass extends Sprite {
 	 * @param bounds
 	 *            bounds of the canvas where the force is present
 	 */
-	public void applyForce(Force f, Dimension bounds) {		
+	public void applyForce(Force f, Dimension bounds) {
 		applyForce(f.getVectorRepresentation(this, bounds));
 	}
-	
+
 	/**
 	 * Apply the vector representation of a force to this mass.
 	 * 

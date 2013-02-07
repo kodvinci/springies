@@ -6,12 +6,19 @@ import simulation.elements.masses.Mass;
 import util.Vector;
 
 /**
+ * A force representing gravity.
  * 
  * @author Erick Gonzalez
  */
 public class GravitationalForce extends Force {
 	private Vector acceleration;
 
+	/**
+	 * Creates a gravitational force with specified magnitude and direction.
+	 * 
+	 * @param angle
+	 * @param magnitude
+	 */
 	public GravitationalForce(double angle, double magnitude) {
 		acceleration = new Vector(angle, magnitude);
 	}

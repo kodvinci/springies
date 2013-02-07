@@ -5,6 +5,7 @@ import java.io.FileNotFoundException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
+
 import simulation.elements.masses.FixedMass;
 import simulation.elements.masses.Mass;
 import simulation.elements.springs.Muscle;
