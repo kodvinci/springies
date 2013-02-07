@@ -4,7 +4,8 @@
 1. Erick Gonzalez
 2. Leonard Ng'eno
 
-	DESCRIPTION
+					DESCRIPTION
+
 This project demonstrates how masses and springs interact with each other 
 when various forces are applied on them. Such forces include gravity, center
 of mass, viscosity and wall forces
@@ -44,14 +45,41 @@ change its acceleration.
 The FixedMass class is a subclass of the Mass class. The major difference between it 
 and the Mass class is that it does not respond to any force that is applied to it.
 
-	3. simulation.elements.springs
+	3. Simulation.elements.springs
 This package contains classes that represent objects that connect two mass objects.
 
 		a. Spring
 The Spring class is a subclass of the Sprite class. It overrides its update method,
 and implements it by creating a force based on the distance and angles between
 the two masses it connects. It then applies that force on the masses.
+
 		b. Muscle
 This class extends the Spring class. It overrides its update method. The major 
 difference between it and the Spring class is that the length of the muscle
 varies based on a number of factors such as its amplitude and oscillation. 
+
+	4. Simulation.forces
+This package contains Force classes.
+
+	a. Force
+An abstract class that represents a force. It has one abstract method, 
+getVectorRepresentation, that gives the vector representation of this force. The 
+force can be applied to a mass within some given bounds.
+
+	b. BoundsForce 
+A subclass of Force. It is the force that is responsible for bouncing masses off 
+a wall when they come into contact with. Its implementation of the 
+getVectorRepresentation method entails creating an impulsive force that pushes 
+the mass in the opposite direction.
+
+	c. GravitationalForce
+A subclass of the Force class that represents the force of gravity. Its 
+getVectorRepresentation method simply creates a force that is proportional 
+to the mass of the Mass object, i.e. a scaled value of its magnitude.
+
+	d. ViscousForce
+A subclass of Force that represents a resistive force that acts in the opposite 
+direction of a mass's velocity. Its getVectorRepresentation method simply negates
+the velocity of the given mass and then scales it by a given value.
+
+	5. Simulation.forces.exponentforces
