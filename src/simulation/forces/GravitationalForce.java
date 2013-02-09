@@ -1,6 +1,7 @@
 package simulation.forces;
 
 import java.awt.Dimension;
+import java.awt.event.KeyEvent;
 
 import simulation.elements.masses.Mass;
 import util.Vector;
@@ -11,6 +12,8 @@ import util.Vector;
  * @author Erick Gonzalez
  */
 public class GravitationalForce extends Force {
+    private static final int TOGGLE_GRAVITY_KEY = KeyEvent.VK_G;
+    
     private Vector acceleration;
 
     /**
@@ -29,4 +32,11 @@ public class GravitationalForce extends Force {
         forceOfGravity.scale(m.getMass());
         return forceOfGravity;
     }
+
+    @Override
+    public void tryToggle(int key) {
+        if (key == TOGGLE_GRAVITY_KEY) {
+            toggle();
+        }
+    }    
 }

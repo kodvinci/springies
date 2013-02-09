@@ -17,7 +17,7 @@ import view.Canvas;
 /**
  * 
  * @author Leonard
- * 
+ * @author Erick
  */
 public class Model {
 
@@ -26,14 +26,7 @@ public class Model {
 
     // keys
     private static final int NEW_ASSEMBLY_KEY = KeyEvent.VK_N;
-    private static final int CLEAR_ASSEMBLIES_KEY = KeyEvent.VK_C;
-    private static final int TOGGLE_GRAVITY_KEY = KeyEvent.VK_G;
-    private static final int TOGGLE_VISCOSITY_KEY = KeyEvent.VK_V;
-    private static final int TOGGLE_CENTER_OF_MASS_KEY = KeyEvent.VK_M;
-    private static final int TOGGLE_TOP_WALL_KEY = KeyEvent.VK_1;
-    private static final int TOGGLE_RIGHT_WALL_KEY = KeyEvent.VK_2;
-    private static final int TOGGLE_BOTTOM_WALL_KEY = KeyEvent.VK_3;
-    private static final int TOGGLE_LEFT_WALL_KEY = KeyEvent.VK_4;    
+    private static final int CLEAR_ASSEMBLIES_KEY = KeyEvent.VK_C;               
 
     // bounds and input for game
     private Canvas myView;
@@ -111,14 +104,16 @@ public class Model {
     
     private void checkKeyboardInput(double elapsedTime, Dimension bounds) {
         int key = myView.getLastKeyPressed();
-        if (key == NEW_ASSEMBLY_KEY) {
-            myView.resetLastKeyPressed();
-            createNewAssembly();
-        }
-        else if (key == CLEAR_ASSEMBLIES_KEY) {
-            myView.resetLastKeyPressed();
-            clearAssemblies();
-        }
+        switch(key) {
+            case NEW_ASSEMBLY_KEY:
+                myView.resetLastKeyPressed();
+                createNewAssembly();
+                break;
+            case CLEAR_ASSEMBLIES_KEY:
+                myView.resetLastKeyPressed();
+                clearAssemblies();
+                break;
+        }        
     }
     
     private void checkMouseInput(double elapsedTime, Dimension bounds) {

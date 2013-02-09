@@ -1,6 +1,7 @@
 package simulation.forces.exponentforces;
 
 import java.awt.Dimension;
+import java.awt.event.KeyEvent;
 import java.util.Collection;
 
 import simulation.elements.masses.Mass;
@@ -14,6 +15,8 @@ import util.Vector;
  * @author Erick Gonzalez
  */
 public class CenterOfMassForce extends ExponentForce {
+    private static final int TOGGLE_CENTER_OF_MASS_KEY = KeyEvent.VK_M;
+    
     private Collection<Mass> myMasses;
 
     /**
@@ -53,5 +56,12 @@ public class CenterOfMassForce extends ExponentForce {
         double distance = Vector.distanceBetween(massLocation, centerOfMassLocation);
 
         return calculateExponentForce(m, bounds, direction, distance);
+    }
+
+    @Override
+    public void tryToggle(int key) {
+       if (key == TOGGLE_CENTER_OF_MASS_KEY) {
+           toggle();
+       }
     }
 }

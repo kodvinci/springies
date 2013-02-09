@@ -1,6 +1,7 @@
 package simulation.forces.exponentforces.walls;
 
 import java.awt.Dimension;
+import java.awt.event.KeyEvent;
 
 import simulation.elements.masses.Mass;
 import util.Sprite;
@@ -12,7 +13,8 @@ import util.Vector;
  * @author Erick Gonzalez
  */
 public class BottomWallRepulsionForce extends WallRepulsionForce {
-
+    private static final int TOGGLE_BOTTOM_WALL_KEY = KeyEvent.VK_3;
+    
     public BottomWallRepulsionForce(double magnitude, double exponent) {
         super(magnitude, exponent);
     }
@@ -23,5 +25,12 @@ public class BottomWallRepulsionForce extends WallRepulsionForce {
         double distance = bounds.getHeight() - m.getY();
 
         return calculateExponentForce(m, bounds, direction, distance);
+    }
+
+    @Override
+    public void tryToggle(int key) { 
+        if (key == TOGGLE_BOTTOM_WALL_KEY) {
+            toggle();
+        }
     }
 }

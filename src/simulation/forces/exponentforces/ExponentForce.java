@@ -31,8 +31,5 @@ public abstract class ExponentForce extends Force {
             double distance) {
         double magnitude = myMagnitude / Math.pow(distance, myExponent);
         return new Vector(direction, magnitude);
-    }
-
-    @Override
-    public abstract Vector getVectorRepresentation(Mass m, Dimension bounds);
+    }    
 }
