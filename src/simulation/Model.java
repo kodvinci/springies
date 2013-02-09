@@ -17,7 +17,7 @@ import view.Canvas;
 /**
  * 
  * @author Leonard
- *
+ * 
  */
 public class Model {
 
@@ -25,8 +25,15 @@ public class Model {
     private static final double DEFAULT_DRAG_SPRING_CONSTANT = 0.05;
 
     // keys
-    private static final int NEW_ASSEMBLY_KEY = KeyEvent.VK_N;	
-	private static final int CLEAR_ASSEMBLIES_KEY = KeyEvent.VK_C;
+    private static final int NEW_ASSEMBLY_KEY = KeyEvent.VK_N;
+    private static final int CLEAR_ASSEMBLIES_KEY = KeyEvent.VK_C;
+    private static final int TOGGLE_GRAVITY_KEY = KeyEvent.VK_G;
+    private static final int TOGGLE_VISCOSITY_KEY = KeyEvent.VK_V;
+    private static final int TOGGLE_CENTER_OF_MASS_KEY = KeyEvent.VK_M;
+    private static final int TOGGLE_TOP_WALL_KEY = KeyEvent.VK_1;
+    private static final int TOGGLE_RIGHT_WALL_KEY = KeyEvent.VK_2;
+    private static final int TOGGLE_BOTTOM_WALL_KEY = KeyEvent.VK_3;
+    private static final int TOGGLE_LEFT_WALL_KEY = KeyEvent.VK_4;    
 
     // bounds and input for game
     private Canvas myView;
@@ -36,7 +43,6 @@ public class Model {
     private List<Force> myForces;
     private Spring myDragSpring;
     private Mass mousePositionMass;
-    
 
     /**
      * Create a game of the given size with the given display for its shapes.
@@ -93,16 +99,29 @@ public class Model {
     public void update(double elapsedTime) {
         Dimension bounds = myView.getSize();
         
+        checkUserInput(elapsedTime, bounds);
+        updateSprings(elapsedTime, bounds);
+        updateMasses(elapsedTime, bounds);
+    }
+    
+    private void checkUserInput(double elapsedTime, Dimension bounds) {                
+        checkKeyboardInput(elapsedTime, bounds);
+        checkMouseInput(elapsedTime, bounds);
+    }
+    
+    private void checkKeyboardInput(double elapsedTime, Dimension bounds) {
         int key = myView.getLastKeyPressed();
         if (key == NEW_ASSEMBLY_KEY) {
             myView.resetLastKeyPressed();
             createNewAssembly();
-        } 
+        }
         else if (key == CLEAR_ASSEMBLIES_KEY) {
             myView.resetLastKeyPressed();
             clearAssemblies();
         }
-
+    }
+    
+    private void checkMouseInput(double elapsedTime, Dimension bounds) {
         Point mousePosition = myView.getLastMousePosition();
         if (mousePosition == Canvas.NO_MOUSE_PRESSED) {
             myDragSpring = null;
@@ -115,9 +134,6 @@ public class Model {
         else {
             myDragSpring = getDragSpring(mousePosition);
         }
-
-        updateSprings(elapsedTime, bounds);
-        updateMasses(elapsedTime, bounds);
     }
 
     private void updateSprings(double elapsedTime, Dimension bounds) {
@@ -196,15 +212,15 @@ public class Model {
      */
     public void add(Force f) {
         myForces.add(f);
-    }					
-	
-	private void clearAssemblies() {
-		mySprings.clear();
-		myMasses.clear();		
-	}
-	
-	private void createNewAssembly() {
-		myView.loadEntities();
-	}
-	
+    }
+
+    private void clearAssemblies() {
+        mySprings.clear();
+        myMasses.clear();
+    }
+
+    private void createNewAssembly() {
+        myView.loadEntities();
+    }
+
 }
