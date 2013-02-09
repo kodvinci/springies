@@ -1,28 +1,27 @@
 package simulation;
 
-import java.awt.Dimension;
 import java.awt.Graphics2D;
 import java.awt.Toolkit;
+import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.List;
 
 import simulation.elements.masses.Mass;
 import simulation.elements.springs.Spring;
-import simulation.forces.Force;
 import view.Canvas;
 
 /**
- * Handles the state and updates for the Springies simulation.
  * 
- * @author Erick Gonzalez
+ * @author Leonard
+ *
  */
 public class Model {
 	// bounds and input for game
 	private Canvas myView;
 	// simulation state
-	private List<Mass> myMasses;
-	private List<Spring> mySprings;
-	private List<Force> myForces;
+	private List<Assembly> myAssemblies;
+	private static final int NEW_ASSEMBLY_KEY = KeyEvent.VK_N;	
+	private static final int CLEAR_ASSEMBLIES_KEY = KeyEvent.VK_C;	
 
 	/**
 	 * Create a game of the given size with the given display for its shapes.
@@ -31,9 +30,7 @@ public class Model {
 	 */
 	public Model(Canvas canvas) {
 		myView = canvas;
-		myMasses = new ArrayList<Mass>();
-		mySprings = new ArrayList<Spring>();
-		myForces = new ArrayList<Force>();
+		myAssemblies = new ArrayList<Assembly>();
 	}
 
 	/**
@@ -42,80 +39,55 @@ public class Model {
 	 * @param pen
 	 */
 	public void paint(Graphics2D pen) {
-		paintSprings(pen);
-		paintMasses(pen);
-
+		for (Assembly a : myAssemblies) {
+			for (Mass m: a.getMasses()){
+				m.paint(pen);
+			}
+			for (Spring s: a.getSprings()){
+				s.paint(pen);
+			}
+		}
 		// make animation smoother
 		Toolkit.getDefaultToolkit().sync();
 		pen.dispose();
 	}
-
-	private void paintSprings(Graphics2D pen) {
-		for (Spring s : mySprings) {
-			s.paint(pen);
-		}
-	}
-
-	private void paintMasses(Graphics2D pen) {
-		for (Mass m : myMasses) {
-			m.paint(pen);
-		}
-	}
-
+	
 	/**
-	 * Updates state for springs and masses.
+	 * Updates assemblies
 	 * 
 	 * @param elapsedTime
 	 *            time in milliseconds since last update
 	 */
 	public void update(double elapsedTime) {
-		updateSprings(elapsedTime, myView.getSize());
-		updateMasses(elapsedTime, myView.getSize());
-	}
-
-	private void updateSprings(double elapsedTime, Dimension bounds) {
-		for (Spring s : mySprings) {
-			s.update(elapsedTime, bounds);
+		for (Assembly a : myAssemblies) {
+			a.update(elapsedTime);
+		}
+		
+		int key = myView.getLastKeyPressed();
+		if(key == NEW_ASSEMBLY_KEY) {
+			myView.resetLastKeyPressed();
+			newAssembly();
+		}
+		if (key == CLEAR_ASSEMBLIES_KEY) {
+			myView.resetLastKeyPressed();
+			clearAssemblies();
 		}
 	}
 
-	private void updateMasses(double elapsedTime, Dimension bounds) {
-		for (Mass m : myMasses) {
-			applyEnvironmentalForces(m, bounds);
-			m.update(elapsedTime, bounds);
-		}
+	public void addAssembly(Assembly assembly) {
+		myAssemblies.add(assembly);
+	}
+	
+	private void clearAssemblies() {
+		myAssemblies.removeAll(myAssemblies);
+	}
+	
+	private void newAssembly() {
+		myView.loadModel();
+	}
+	
+	public Canvas getMyView(){
+		return myView;
 	}
 
-	private void applyEnvironmentalForces(Mass m, Dimension bounds) {
-		for (Force f : myForces) {
-			m.applyForce(f, bounds);
-		}
-	}
-
-	/**
-	 * Add given mass to this simulation.
-	 * 
-	 * @param m
-	 */
-	public void add(Mass m) {
-		myMasses.add(m);
-	}
-
-	/**
-	 * Add given spring to this simulation.
-	 * 
-	 * @param s
-	 */
-	public void add(Spring s) {
-		mySprings.add(s);
-	}
-
-	/**
-	 * Add given force to this simulation.
-	 * 
-	 * @param f
-	 */
-	public void add(Force f) {
-		myForces.add(f);
-	}
 }

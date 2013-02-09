@@ -24,6 +24,7 @@ import javax.swing.Timer;
 import simulation.Factory;
 import simulation.Model;
 
+
 /**
  * Creates an area of the screen in which the game will be drawn that supports:
  * <UL>
@@ -57,6 +58,7 @@ public class Canvas extends JComponent {
 	private int myLastKeyPressed;
 	private Point myLastMousePosition;
 	private Set<Integer> myKeys;
+	//Factory factory = new Factory();
 
 	/**
 	 * Create a panel so that it knows its size
@@ -98,6 +100,9 @@ public class Canvas extends JComponent {
 		return myLastKeyPressed;
 	}
 
+	public void resetLastKeyPressed() {
+		myLastKeyPressed = NO_KEY_PRESSED;
+	}
 	/**
 	 * Returns all keys currently pressed by the user.
 	 */
@@ -186,7 +191,7 @@ public class Canvas extends JComponent {
 	}
 
 	// load model from file chosen by user
-	private void loadModel() {
+	public void loadModel() {  //was private
 		Factory factory = new Factory();
 		int response = INPUT_CHOOSER.showOpenDialog(null);
 		if (response == JFileChooser.APPROVE_OPTION) {

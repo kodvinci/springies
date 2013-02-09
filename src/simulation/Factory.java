@@ -35,10 +35,11 @@ public class Factory {
 	private static final String CENTER_MASS_KEYWORD = "centermass";
 	private static final String WALL_REPULSION_KEYWORD = "wall";
 	private static final String MUSCLE_KEYWORD = "muscle";
-
+	private Assembly assembly; 
+	
 	// mass IDs
 	Map<Integer, Mass> myMasses = new HashMap<Integer, Mass>();
-
+	
 	/**
 	 * Parses elements from a formatted file and stores them.
 	 * 
@@ -48,6 +49,7 @@ public class Factory {
 	 *            formatted file from which elements are parsed
 	 */
 	public void loadElements(Model model, File modelFile) {
+		assembly = new Assembly(model.getMyView());
 		try {
 			Scanner input = new Scanner(modelFile);
 			while (input.hasNext()) {
@@ -55,16 +57,17 @@ public class Factory {
 				if (line.hasNext()) {
 					String type = line.next();
 					if (MASS_KEYWORD.equals(type)) {
-						model.add(createMass(line));
+						assembly.add(createMass(line));
 					} else if (SPRING_KEYWORD.equals(type)) {
-						model.add(createSpring(line));
+						assembly.add(createSpring(line));
 					} else if (MUSCLE_KEYWORD.equals(type)) {
-						model.add(createMuscle(line));
+						assembly.add(createMuscle(line));
 					}
-
 				}
 			}
+			model.addAssembly(assembly);
 			input.close();
+			
 		} catch (FileNotFoundException e) {
 			// should not happen because File came from user selection
 			e.printStackTrace();
@@ -87,17 +90,19 @@ public class Factory {
 				if (line.hasNext()) {
 					String type = line.next();
 					if (GRAVITY_KEYWORD.equals(type)) {
-						model.add(createGravitationalForce(line));
+						assembly.add(createGravitationalForce(line));
 					} else if (VISCOSITY_KEYWORD.equals(type)) {
-						model.add(createViscosityForce(line));
+						assembly.add(createViscosityForce(line));
 					} else if (CENTER_MASS_KEYWORD.equals(type)) {
-						model.add(createCenterOfMassForce(line));
+						assembly.add(createCenterOfMassForce(line));
 					} else if (WALL_REPULSION_KEYWORD.equals(type)) {
-						model.add(createWallRepulsionForce(line));
+						assembly.add(createWallRepulsionForce(line));
 					}
 				}
 			}
+			model.addAssembly(assembly);
 			input.close();
+			
 		} catch (FileNotFoundException e) {
 			// should not happen because File came from user selection
 			e.printStackTrace();
