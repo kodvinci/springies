@@ -13,15 +13,15 @@ import util.Vector;
  */
 public class LeftWallRepulsionForce extends WallRepulsionForce {
 
-	public LeftWallRepulsionForce(double magnitude, double exponent) {
-		super(magnitude, exponent);
-	}
+    public LeftWallRepulsionForce(double magnitude, double exponent) {
+        super(magnitude, exponent);
+    }
 
-	@Override
-	public Vector getVectorRepresentation(Mass m, Dimension bounds) {
-		double direction = Sprite.RIGHT_DIRECTION;
-		double distance = m.getX();
+    @Override
+    public Vector getVectorRepresentation(Mass m, Dimension bounds) {
+        double direction = Sprite.RIGHT_DIRECTION;
+        double distance = m.getX();
 
-		return calculateExponentForce(m, bounds, direction, distance);
-	}
+        return calculateExponentForce(m, bounds, direction, distance);
+    }
 }

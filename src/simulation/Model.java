@@ -2,6 +2,7 @@ package simulation;
 
 import java.awt.Dimension;
 import java.awt.Graphics2D;
+import java.awt.Point;
 import java.awt.Toolkit;
 import java.util.ArrayList;
 import java.util.List;
@@ -9,6 +10,7 @@ import java.util.List;
 import simulation.elements.masses.Mass;
 import simulation.elements.springs.Spring;
 import simulation.forces.Force;
+import util.Location;
 import view.Canvas;
 
 /**
@@ -17,105 +19,155 @@ import view.Canvas;
  * @author Erick Gonzalez
  */
 public class Model {
-	// bounds and input for game
-	private Canvas myView;
-	// simulation state
-	private List<Mass> myMasses;
-	private List<Spring> mySprings;
-	private List<Force> myForces;
+    // bounds and input for game
+    private Canvas myView;
+    // simulation state
+    private List<Mass> myMasses;
+    private List<Spring> mySprings;
+    private List<Force> myForces;
+    private Spring myDragSpring;
+    private Mass mousePositionMass;
 
-	/**
-	 * Create a game of the given size with the given display for its shapes.
-	 * 
-	 * @param canvas
-	 */
-	public Model(Canvas canvas) {
-		myView = canvas;
-		myMasses = new ArrayList<Mass>();
-		mySprings = new ArrayList<Spring>();
-		myForces = new ArrayList<Force>();
-	}
+    /**
+     * Create a game of the given size with the given display for its shapes.
+     * 
+     * @param canvas
+     *            the canvas
+     */
+    public Model(Canvas canvas) {
+        myView = canvas;
+        myMasses = new ArrayList<Mass>();
+        mySprings = new ArrayList<Spring>();
+        myForces = new ArrayList<Force>();
+    }
 
-	/**
-	 * Draw all elements of the simulation.
-	 * 
-	 * @param pen
-	 */
-	public void paint(Graphics2D pen) {
-		paintSprings(pen);
-		paintMasses(pen);
+    /**
+     * Draw all elements of the simulation.
+     * 
+     * @param pen
+     *            a pen that draws
+     */
+    public void paint(Graphics2D pen) {
+        paintSprings(pen);
+        paintMasses(pen);
 
-		// make animation smoother
-		Toolkit.getDefaultToolkit().sync();
-		pen.dispose();
-	}
+        // make animation smoother
+        Toolkit.getDefaultToolkit().sync();
+        pen.dispose();
+    }
 
-	private void paintSprings(Graphics2D pen) {
-		for (Spring s : mySprings) {
-			s.paint(pen);
-		}
-	}
+    private void paintSprings(Graphics2D pen) {
+        for (Spring s : mySprings) {
+            s.paint(pen);
+        }
+        if (myDragSpring != null) {
+            myDragSpring.paint(pen);
+        }
+    }
 
-	private void paintMasses(Graphics2D pen) {
-		for (Mass m : myMasses) {
-			m.paint(pen);
-		}
-	}
+    private void paintMasses(Graphics2D pen) {
+        for (Mass m : myMasses) {
+            m.paint(pen);
+        }
+    }
 
-	/**
-	 * Updates state for springs and masses.
-	 * 
-	 * @param elapsedTime
-	 *            time in milliseconds since last update
-	 */
-	public void update(double elapsedTime) {
-		updateSprings(elapsedTime, myView.getSize());
-		updateMasses(elapsedTime, myView.getSize());
-	}
+    /**
+     * Updates state for springs and masses.
+     * 
+     * @param elapsedTime
+     *            time in milliseconds since last update
+     */
+    public void update(double elapsedTime) {
+        Point mousePosition = myView.getLastMousePosition();        
 
-	private void updateSprings(double elapsedTime, Dimension bounds) {
-		for (Spring s : mySprings) {
-			s.update(elapsedTime, bounds);
-		}
-	}
+        if (mousePosition != null) {
+            if (mousePositionMass != null) {
+                mousePositionMass
+                        .setCenter(new Location(mousePosition.getX(), mousePosition.getY()));
+            }
 
-	private void updateMasses(double elapsedTime, Dimension bounds) {
-		for (Mass m : myMasses) {
-			applyEnvironmentalForces(m, bounds);
-			m.update(elapsedTime, bounds);
-		}
-	}
+            if (myDragSpring != null) {
+                myDragSpring.update(elapsedTime, myView.getSize());
+            }
+            else {
+                myDragSpring = getDragSpring(mousePosition);
+            }
+        }
+        else {
+            myDragSpring = null;
+        }
 
-	private void applyEnvironmentalForces(Mass m, Dimension bounds) {
-		for (Force f : myForces) {
-			m.applyForce(f, bounds);
-		}
-	}
+        updateSprings(elapsedTime, myView.getSize());
+        updateMasses(elapsedTime, myView.getSize());
+    }
 
-	/**
-	 * Add given mass to this simulation.
-	 * 
-	 * @param m
-	 */
-	public void add(Mass m) {
-		myMasses.add(m);
-	}
+    private void updateSprings(double elapsedTime, Dimension bounds) {
+        for (Spring s : mySprings) {
+            s.update(elapsedTime, bounds);
+        }
+    }
 
-	/**
-	 * Add given spring to this simulation.
-	 * 
-	 * @param s
-	 */
-	public void add(Spring s) {
-		mySprings.add(s);
-	}
+    private void updateMasses(double elapsedTime, Dimension bounds) {
+        for (Mass m : myMasses) {
+            applyEnvironmentalForces(m, bounds);
+            m.update(elapsedTime, bounds);
+        }
+    }
 
-	/**
-	 * Add given force to this simulation.
-	 * 
-	 * @param f
-	 */
-	public void add(Force f) {
-		myForces.add(f);
-	}
+    private void applyEnvironmentalForces(Mass m, Dimension bounds) {
+        for (Force f : myForces) {
+            m.applyForce(f, bounds);
+        }
+    }
+
+    private Spring getDragSpring(Point mousePosition) {
+        Mass closestMass = getClosestMass(mousePosition);
+        mousePositionMass = new Mass(mousePosition.getX(), mousePosition.getY(), 1);
+        return new Spring(closestMass, mousePositionMass, closestMass.distance(mousePositionMass), 0.005);
+    }
+
+    private Mass getClosestMass(Point mousePosition) {
+        Mass closestMass = null;
+        double smallestDistance = Double.MAX_VALUE;
+
+        for (Mass m : myMasses) {
+            Location massLocation = new Location(m.getX(), m.getY());
+            double currentDistance = massLocation.distance(mousePosition);
+            if (currentDistance < smallestDistance) {
+                smallestDistance = currentDistance;
+                closestMass = m;
+            }
+        }
+        return closestMass;
+    }
+
+    /**
+     * Add given mass to this simulation.
+     * 
+     * @param m
+     *            mass
+     */
+    public void add(Mass m) {
+        myMasses.add(m);
+    }
+
+    /**
+     * Add given spring to this simulation.
+     * 
+     * @param s
+     *            spring
+     */
+    public void add(Spring s) {
+        mySprings.add(s);
+    }
+
+    /**
+     * Add given force to this simulation.
+     * 
+     * @param f
+     *            force
+     */
+    public void add(Force f) {
+        myForces.add(f);
+    }
 }
