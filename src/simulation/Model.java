@@ -22,7 +22,7 @@ import view.Canvas;
 public class Model {
 
     // reasonable default values
-    private static final double DEFAULT_DRAG_SPRING_CONSTANT = 0.05;
+    private static final double DEFAULT_DRAG_SPRING_CONSTANT = 0.10;
 
     // keys
     private static final int NEW_ASSEMBLY_KEY = KeyEvent.VK_N;	
@@ -93,6 +93,11 @@ public class Model {
      */
     public void update(double elapsedTime) {
         Dimension bounds = myView.getSize();
+        
+        //
+        System.out.println("Gravity is on : " + myForces.get(0).isOn());
+        //
+        
         checkUserInput(elapsedTime, bounds);
         updateSprings(elapsedTime, bounds);
         updateMasses(elapsedTime, bounds);
@@ -105,6 +110,17 @@ public class Model {
     
     private void checkKeyboardInput(double elapsedTime, Dimension bounds) {
         int key = myView.getLastKeyPressed();
+        tryTogglingForces(key);
+        tryChangingState(key);
+    }
+    
+    private void tryTogglingForces(int key) {
+        for (Force f : myForces) {
+            f.tryToggle(key);
+        }
+    }
+    
+    private void tryChangingState(int key) {
         switch(key) {
             case NEW_ASSEMBLY_KEY:
                 myView.resetLastKeyPressed();
@@ -120,7 +136,7 @@ public class Model {
             case DECREASE_AREA_KEY:
                 myView.setBounds(myView.getX()+10, myView.getY()+10, myView.getWidth()-20, myView.getHeight()-20);
                 break;
-        }        
+        }
     }
     
     private void checkMouseInput(double elapsedTime, Dimension bounds) {
@@ -153,7 +169,8 @@ public class Model {
 
     private void applyEnvironmentalForces(Mass m, Dimension bounds) {
         for (Force f : myForces) {
-            m.applyForce(f, bounds);
+            if (f.isOn()) 
+                m.applyForce(f, bounds);
         }
     }
 

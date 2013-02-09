@@ -18,15 +18,16 @@ public abstract class Force {
      */
     public Force() {
         isOn = true;
-    }   
+    }
+    
+    public boolean isOn() {
+        return isOn;
+    }
 
     protected void toggle() {
         isOn = !isOn;
-    }
+    }    
     
-    protected boolean isOn() {
-        return isOn;
-    }
     
     /**
      * Gets the vector representation of this force that will be applied to some mass within some
