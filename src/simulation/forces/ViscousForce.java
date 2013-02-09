@@ -11,22 +11,22 @@ import util.Vector;
  * @author Erick Gonzalez
  */
 public class ViscousForce extends Force {
-	private double scaleValue;
+    private double scaleValue;
 
-	/**
-	 * Creates a viscous force with given strength.
-	 * 
-	 * @param scaleValue
-	 */
-	public ViscousForce(double scaleValue) {
-		this.scaleValue = scaleValue;
-	}
+    /**
+     * Creates a viscous force with given strength.
+     * 
+     * @param scaleValue
+     */
+    public ViscousForce(double scaleValue) {
+        this.scaleValue = scaleValue;
+    }
 
-	@Override
-	public Vector getVectorRepresentation(Mass m, Dimension bounds) {
-		Vector force = new Vector(m.getVelocity());
-		force.negate();
-		force.scale(scaleValue);
-		return force;
-	}
+    @Override
+    public Vector getVectorRepresentation(Mass m, Dimension bounds) {
+        Vector force = new Vector(m.getVelocity());
+        force.negate();
+        force.scale(scaleValue);
+        return force;
+    }
 }

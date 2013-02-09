@@ -1,6 +1,7 @@
 package simulation;
 import java.awt.Dimension;
 import java.awt.Graphics2D;
+import java.awt.Point;
 import java.awt.Toolkit;
 import java.util.ArrayList;
 import java.util.List;
@@ -8,6 +9,7 @@ import java.util.List;
 import simulation.elements.masses.Mass;
 import simulation.elements.springs.Spring;
 import simulation.forces.Force;
+import util.Location;
 import view.Canvas;
 
 /**
@@ -22,7 +24,9 @@ public class Assembly {
 	private List<Mass> myMasses;
 	private List<Spring> mySprings;
 	private List<Force> myForces;
-
+    private Spring myDragSpring;
+    private Mass mousePositionMass;
+    
 	public Assembly(Canvas canvas) {
 		myView = canvas;
 		myMasses = new ArrayList<Mass>();
@@ -62,6 +66,25 @@ public class Assembly {
 	 *            time in milliseconds since last update
 	 */
 	public void update(double elapsedTime) {
+        Point mousePosition = myView.getLastMousePosition();        
+
+        if (mousePosition != null) {
+            if (mousePositionMass != null) {
+                mousePositionMass
+                        .setCenter(new Location(mousePosition.getX(), mousePosition.getY()));
+            }
+
+            if (myDragSpring != null) {
+                myDragSpring.update(elapsedTime, myView.getSize());
+            }
+            else {
+                myDragSpring = getDragSpring(mousePosition);
+            }
+        }
+        else {
+            myDragSpring = null;
+        }
+        
 		updateSprings(elapsedTime, myView.getSize());
 		updateMasses(elapsedTime, myView.getSize());
 	}
@@ -84,7 +107,28 @@ public class Assembly {
 			m.applyForce(f, bounds);
 		}
 	}
+	
+	private Spring getDragSpring(Point mousePosition) {
+        Mass closestMass = getClosestMass(mousePosition);
+        mousePositionMass = new Mass(mousePosition.getX(), mousePosition.getY(), 1);
+        return new Spring(closestMass, mousePositionMass, closestMass.distance(mousePositionMass), 0.005);
+    }
+	
+	private Mass getClosestMass(Point mousePosition) {
+        Mass closestMass = null;
+        double smallestDistance = Double.MAX_VALUE;
 
+        for (Mass m : myMasses) {
+            Location massLocation = new Location(m.getX(), m.getY());
+            double currentDistance = massLocation.distance(mousePosition);
+            if (currentDistance < smallestDistance) {
+                smallestDistance = currentDistance;
+                closestMass = m;
+            }
+        }
+        return closestMass;
+    }
+	
 	/**
 	 * Add given mass to this simulation.
 	 * 

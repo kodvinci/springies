@@ -58,7 +58,6 @@ public class Canvas extends JComponent {
 	private int myLastKeyPressed;
 	private Point myLastMousePosition;
 	private Set<Integer> myKeys;
-	//Factory factory = new Factory();
 
 	/**
 	 * Create a panel so that it knows its size
@@ -191,7 +190,7 @@ public class Canvas extends JComponent {
 	}
 
 	// load model from file chosen by user
-	public void loadModel() {  //was private
+	public void loadModel() { 
 		Factory factory = new Factory();
 		int response = INPUT_CHOOSER.showOpenDialog(null);
 		if (response == JFileChooser.APPROVE_OPTION) {

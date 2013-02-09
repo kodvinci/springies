@@ -13,15 +13,15 @@ import util.Vector;
  */
 public class BottomWallRepulsionForce extends WallRepulsionForce {
 
-	public BottomWallRepulsionForce(double magnitude, double exponent) {
-		super(magnitude, exponent);
-	}
+    public BottomWallRepulsionForce(double magnitude, double exponent) {
+        super(magnitude, exponent);
+    }
 
-	@Override
-	public Vector getVectorRepresentation(Mass m, Dimension bounds) {
-		double direction = Sprite.UP_DIRECTION;
-		double distance = bounds.getHeight() - m.getY();
+    @Override
+    public Vector getVectorRepresentation(Mass m, Dimension bounds) {
+        double direction = Sprite.UP_DIRECTION;
+        double distance = bounds.getHeight() - m.getY();
 
-		return calculateExponentForce(m, bounds, direction, distance);
-	}
+        return calculateExponentForce(m, bounds, direction, distance);
+    }
 }

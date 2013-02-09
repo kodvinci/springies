@@ -89,5 +89,4 @@ public class Model {
 	public Canvas getMyView(){
 		return myView;
 	}
-
 }

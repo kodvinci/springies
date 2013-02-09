@@ -20,8 +20,8 @@ import simulation.forces.exponentforces.walls.TopWallRepulsionForce;
 import simulation.forces.exponentforces.walls.WallRepulsionForce;
 
 /**
- * A factory class that parses an input file containing different elements or
- * forces and creates in-memory representations of them.
+ * A factory class that parses an input file containing different elements or forces and creates
+ * in-memory representations of them.
  * 
  * @author Robert C. Duvall
  * @author Erick Gonzalez
@@ -176,5 +176,4 @@ public class Factory {
 		double amp = line.nextDouble();
 		return new Muscle(m1, m2, restLength, ks, amp);
 	}
-
 }
