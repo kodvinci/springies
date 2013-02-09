@@ -40,7 +40,8 @@ public class Mass extends Sprite {
      *            x-coordinate
      * @param y
      *            y-coordinate
-     * @param mass mass
+     * @param mass
+     *            mass
      */
     public Mass(double x, double y, double mass) {
         super(DEFUALT_IMAGE, new Location(x, y), DEFAULT_SIZE);
@@ -62,7 +63,8 @@ public class Mass extends Sprite {
      * Apply a force to this mass with the given bounds of the canvas where this force will be
      * present.
      * 
-     * @param f force
+     * @param f
+     *            force
      * @param bounds
      *            bounds of the canvas where the force is present
      */
@@ -73,7 +75,8 @@ public class Mass extends Sprite {
     /**
      * Apply the vector representation of a force to this mass.
      * 
-     * @param v vector representation of force
+     * @param v
+     *            vector representation of force
      */
     public void applyForce(Vector v) {
         myAcceleration.sum(v);
@@ -82,7 +85,8 @@ public class Mass extends Sprite {
     /**
      * Convenience method. Finds distance between this mass and another.
      * 
-     * @param other other mass
+     * @param other
+     *            other mass
      * @return distance between this mass and other
      */
     public double distance(Mass other) {

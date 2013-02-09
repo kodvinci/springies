@@ -19,10 +19,11 @@ public class FixedMass extends Mass {
      *            x-coordinate
      * @param y
      *            y-coordinate
-     * @param mass mass
+     * @param mass
+     *            mass
      */
     public FixedMass(double x, double y, double mass) {
-        super(x, y, -mass); 
+        super(x, y, -mass);
     }
 
     @Override

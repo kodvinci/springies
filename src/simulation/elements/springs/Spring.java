@@ -1,6 +1,5 @@
 package simulation.elements.springs;
 
-import java.awt.Color;
 import java.awt.Dimension;
 
 import simulation.elements.masses.Mass;
@@ -22,8 +21,8 @@ public class Spring extends Sprite {
     private Mass myStart;
     private Mass myEnd;
     private double myLength;
-    private double myK;
-
+    private double myK;   
+    
     /**
      * @param start
      *            starting mass
@@ -59,22 +58,7 @@ public class Spring extends Sprite {
         setCenter(getCenter(myStart, myEnd));
         setSize(getSize(myStart, myEnd));
         setVelocity(Vector.angleBetween(dx, dy), 0);
-    }
-
-    /**
-     * Convenience method.
-     */
-    protected Color getColor(double diff) {
-        if (Vector.fuzzyEquals(diff, 0)) {
-            return Color.BLACK;
-        }
-        else if (diff < 0.0) {
-            return Color.BLUE;
-        }
-        else {
-            return Color.RED;
-        }
-    }
+    }   
 
     // compute center of this spring.
     public static Location getCenter(Mass start, Mass end) {

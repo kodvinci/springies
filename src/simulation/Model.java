@@ -19,6 +19,9 @@ import view.Canvas;
  * @author Erick Gonzalez
  */
 public class Model {
+    // reasonable default values
+    private static final double DEFAULT_DRAG_SPRING_CONSTANT = 0.05;
+
     // bounds and input for game
     private Canvas myView;
     // simulation state
@@ -63,6 +66,9 @@ public class Model {
         if (myDragSpring != null) {
             myDragSpring.paint(pen);
         }
+        if (mousePositionMass != null) {
+            mousePositionMass.paint(pen);
+        }
     }
 
     private void paintMasses(Graphics2D pen) {
@@ -78,27 +84,23 @@ public class Model {
      *            time in milliseconds since last update
      */
     public void update(double elapsedTime) {
-        Point mousePosition = myView.getLastMousePosition();        
+        Dimension bounds = myView.getSize();
 
-        if (mousePosition != null) {
-            if (mousePositionMass != null) {
-                mousePositionMass
-                        .setCenter(new Location(mousePosition.getX(), mousePosition.getY()));
-            }
-
-            if (myDragSpring != null) {
-                myDragSpring.update(elapsedTime, myView.getSize());
-            }
-            else {
-                myDragSpring = getDragSpring(mousePosition);
-            }
+        Point mousePosition = myView.getLastMousePosition();
+        if (mousePosition == Canvas.NO_MOUSE_PRESSED) {
+            myDragSpring = null;
+            mousePositionMass = null;
+        }
+        else if (myDragSpring != null) {
+            mousePositionMass.setCenter(new Location(mousePosition.getX(), mousePosition.getY()));
+            myDragSpring.update(elapsedTime, bounds);
         }
         else {
-            myDragSpring = null;
+            myDragSpring = getDragSpring(mousePosition);
         }
 
-        updateSprings(elapsedTime, myView.getSize());
-        updateMasses(elapsedTime, myView.getSize());
+        updateSprings(elapsedTime, bounds);
+        updateMasses(elapsedTime, bounds);
     }
 
     private void updateSprings(double elapsedTime, Dimension bounds) {
@@ -120,12 +122,20 @@ public class Model {
         }
     }
 
+    /*
+     * Creates a new spring between the current clicked mouse position, and the closest mass to that
+     * mouse position.
+     */
     private Spring getDragSpring(Point mousePosition) {
         Mass closestMass = getClosestMass(mousePosition);
-        mousePositionMass = new Mass(mousePosition.getX(), mousePosition.getY(), 1);
-        return new Spring(closestMass, mousePositionMass, closestMass.distance(mousePositionMass), 0.005);
+        mousePositionMass = new Mass(mousePosition.getX(), mousePosition.getY(), 0);
+        return new Spring(closestMass, mousePositionMass, closestMass.distance(mousePositionMass),
+                DEFAULT_DRAG_SPRING_CONSTANT);
     }
 
+    /*
+     * Retrieves the closest mass to the last clicked mouse position.
+     */
     private Mass getClosestMass(Point mousePosition) {
         Mass closestMass = null;
         double smallestDistance = Double.MAX_VALUE;

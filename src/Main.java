@@ -17,7 +17,7 @@ public class Main {
      */
     public static final Dimension SIZE = new Dimension(800, 600);
     /**
-     * Title on window 
+     * Title on window
      */
     public static final String TITLE = "Springies!";
 
@@ -27,7 +27,8 @@ public class Main {
 
     /**
      * 
-     * @param args default command line args
+     * @param args
+     *            default command line args
      */
     public static void main(String[] args) {
         // view of user's content
