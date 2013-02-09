@@ -4,6 +4,7 @@ import java.awt.Dimension;
 import java.awt.Graphics2D;
 import java.awt.Point;
 import java.awt.Toolkit;
+import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,13 +15,18 @@ import util.Location;
 import view.Canvas;
 
 /**
- * Handles the state and updates for the Springies simulation.
  * 
- * @author Erick Gonzalez
+ * @author Leonard
+ *
  */
 public class Model {
+
     // reasonable default values
     private static final double DEFAULT_DRAG_SPRING_CONSTANT = 0.05;
+
+    // keys
+    private static final int NEW_ASSEMBLY_KEY = KeyEvent.VK_N;	
+	private static final int CLEAR_ASSEMBLIES_KEY = KeyEvent.VK_C;
 
     // bounds and input for game
     private Canvas myView;
@@ -30,6 +36,7 @@ public class Model {
     private List<Force> myForces;
     private Spring myDragSpring;
     private Mass mousePositionMass;
+    
 
     /**
      * Create a game of the given size with the given display for its shapes.
@@ -85,6 +92,16 @@ public class Model {
      */
     public void update(double elapsedTime) {
         Dimension bounds = myView.getSize();
+        
+        int key = myView.getLastKeyPressed();
+        if (key == NEW_ASSEMBLY_KEY) {
+            myView.resetLastKeyPressed();
+            createNewAssembly();
+        } 
+        else if (key == CLEAR_ASSEMBLIES_KEY) {
+            myView.resetLastKeyPressed();
+            clearAssemblies();
+        }
 
         Point mousePosition = myView.getLastMousePosition();
         if (mousePosition == Canvas.NO_MOUSE_PRESSED) {
@@ -179,5 +196,15 @@ public class Model {
      */
     public void add(Force f) {
         myForces.add(f);
-    }
+    }					
+	
+	private void clearAssemblies() {
+		mySprings.clear();
+		myMasses.clear();		
+	}
+	
+	private void createNewAssembly() {
+		myView.loadEntities();
+	}
+	
 }
