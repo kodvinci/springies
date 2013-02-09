@@ -27,7 +27,9 @@ public class Model {
     // keys
     private static final int NEW_ASSEMBLY_KEY = KeyEvent.VK_N;	
 	private static final int CLEAR_ASSEMBLIES_KEY = KeyEvent.VK_C;
-
+	private static final int INCREASE_AREA_KEY = KeyEvent.VK_UP;
+	private static final int DECREASE_AREA_KEY = KeyEvent.VK_DOWN;
+	
     // bounds and input for game
     private Canvas myView;
     // simulation state
@@ -92,7 +94,12 @@ public class Model {
      */
     public void update(double elapsedTime) {
         Dimension bounds = myView.getSize();
-        
+        checkUserInput(elapsedTime, bounds);
+        updateSprings(elapsedTime, bounds);
+        updateMasses(elapsedTime, bounds);
+    }
+    
+    private void checkUserInput(double elapsedTime, Dimension bounds) {
         int key = myView.getLastKeyPressed();
         if (key == NEW_ASSEMBLY_KEY) {
             myView.resetLastKeyPressed();
@@ -102,7 +109,20 @@ public class Model {
             myView.resetLastKeyPressed();
             clearAssemblies();
         }
-
+        else if (key == INCREASE_AREA_KEY) {
+        	//increase area
+        	int width = myView.getWidth();
+        	int height = myView.getHeight();
+        	myView.setBounds(myView.getX()-10, myView.getY()-10, width+20, height+20);
+        	
+        }
+        else if (key == DECREASE_AREA_KEY) {
+        	//decrease area
+        	int width = myView.getWidth();
+        	int height = myView.getHeight();
+        	myView.setBounds(myView.getX()+10, myView.getY()+10, width-20, height-20);
+        }
+        
         Point mousePosition = myView.getLastMousePosition();
         if (mousePosition == Canvas.NO_MOUSE_PRESSED) {
             myDragSpring = null;
@@ -115,11 +135,8 @@ public class Model {
         else {
             myDragSpring = getDragSpring(mousePosition);
         }
-
-        updateSprings(elapsedTime, bounds);
-        updateMasses(elapsedTime, bounds);
     }
-
+    
     private void updateSprings(double elapsedTime, Dimension bounds) {
         for (Spring s : mySprings) {
             s.update(elapsedTime, bounds);
