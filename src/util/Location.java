@@ -21,8 +21,12 @@ public class Location extends Point2D.Double {
         super(0, 0);
     }
 
+    
     /**
      * Create a location at given (x, y) coordinates.
+     * 
+     * @param x x-coordinate
+     * @param y y-coordinate
      */
     public Location(double x, double y) {
         super(x, y);
@@ -30,6 +34,8 @@ public class Location extends Point2D.Double {
 
     /**
      * Create a location that is identical to the given other location.
+     * 
+     * @param source source point
      */
     public Location(Point2D source) {
         super(source.getX(), source.getY());
@@ -46,6 +52,8 @@ public class Location extends Point2D.Double {
      * Move this location by given vector.
      * 
      * @see java.awt.Point#translate(int, int)
+     * 
+     * @param amount the amount by which to translate this point by
      */
     public void translate(Vector amount) {
         setLocation(getX() + amount.getXChange(), getY() + amount.getYChange());
@@ -53,6 +61,8 @@ public class Location extends Point2D.Double {
 
     /**
      * Returns a vector that is the difference between this location and the given other location.
+     * 
+     * @param other other point
      */
     public Vector difference(Point2D other) {
         return new Vector(this, other);

@@ -15,14 +15,14 @@ import util.Vector;
  */
 public class Spring extends Sprite {
     // reasonable default values
-    public static final Pixmap DEFAULT_IMAGE = new Pixmap("spring.gif");
-    public static final int IMAGE_HEIGHT = 20;
+    private static final Pixmap DEFAULT_IMAGE = new Pixmap("spring.gif");
+    private static final int IMAGE_HEIGHT = 20;
 
     private Mass myStart;
     private Mass myEnd;
     private double myLength;
-    private double myK;   
-    
+    private double myK;
+
     /**
      * @param start
      *            starting mass
@@ -58,14 +58,28 @@ public class Spring extends Sprite {
         setCenter(getCenter(myStart, myEnd));
         setSize(getSize(myStart, myEnd));
         setVelocity(Vector.angleBetween(dx, dy), 0);
-    }   
+    }
 
-    // compute center of this spring.
+    /**
+     * 
+     * @param start
+     *            start mass
+     * @param end
+     *            end mass
+     * @return
+     */
     public static Location getCenter(Mass start, Mass end) {
         return new Location((start.getX() + end.getX()) / 2, (start.getY() + end.getY()) / 2);
     }
 
-    // compute size of this spring.
+    /**
+     * 
+     * @param start
+     *            start mass
+     * @param end
+     *            end mass
+     * @return
+     */
     public static Dimension getSize(Mass start, Mass end) {
         return new Dimension((int) start.distance(end), IMAGE_HEIGHT);
     }

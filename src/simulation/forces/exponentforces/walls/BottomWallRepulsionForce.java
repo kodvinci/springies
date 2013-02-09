@@ -14,7 +14,13 @@ import util.Vector;
  */
 public class BottomWallRepulsionForce extends WallRepulsionForce {
     private static final int TOGGLE_BOTTOM_WALL_KEY = KeyEvent.VK_3;
-    
+
+    /**
+     * Creates a repulsion force from the bottom wall
+     * 
+     * @param magnitude the magnitude of this repulsion force
+     * @param exponent exponent value
+     */
     public BottomWallRepulsionForce(double magnitude, double exponent) {
         super(magnitude, exponent);
     }
@@ -28,7 +34,7 @@ public class BottomWallRepulsionForce extends WallRepulsionForce {
     }
 
     @Override
-    public void tryToggle(int key) { 
+    public void tryToggle(int key) {
         if (key == TOGGLE_BOTTOM_WALL_KEY) {
             toggle();
         }

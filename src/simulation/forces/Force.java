@@ -11,33 +11,43 @@ import util.Vector;
  * @author Erick Gonzalez
  */
 public abstract class Force {
-    private boolean isOn;    
+    private boolean myVisiblity;
 
     /**
      * Turns the force on
      */
     public Force() {
-        isOn = true;
+        myVisiblity = true;
     }
-    
+
+    /**
+     * 
+     * @return true if force is present
+     */
     public boolean isOn() {
-        return isOn;
+        return myVisiblity;
     }
 
     protected void toggle() {
-        isOn = !isOn;
-    }    
-    
-    
+        myVisiblity = !myVisiblity;
+    }
+
     /**
      * Gets the vector representation of this force that will be applied to some mass within some
      * bounds provided.
      * 
      * @param m
+     *            a mass the force is applied to
      * @param bounds
+     *            the bounds within which the force is present
      * @return
      */
     public abstract Vector getVectorRepresentation(Mass m, Dimension bounds);
-        
+
+    /**
+     * Tries to toggle the force on or off if the given key matches the force's toggle key
+     * 
+     * @param key the given key pressed
+     */
     public abstract void tryToggle(int key);
 }

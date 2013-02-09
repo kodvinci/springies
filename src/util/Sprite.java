@@ -14,9 +14,21 @@ import java.awt.geom.Point2D;
  */
 public abstract class Sprite {
     // canonical directions for a collision
+    /**
+     * Angle of 0 degrees relative to positive x-axis.
+     */
     public static final int RIGHT_DIRECTION = 0;
+    /**
+     * Angle of 90 degrees relative to positive x-axis.
+     */
     public static final int DOWN_DIRECTION = 90;
+    /**
+     * Angle of 180 degrees relative to positive x-axis.
+     */
     public static final int LEFT_DIRECTION = 180;
+    /**
+     * Angle of 270 degrees relative to positive x-axis.
+     */
     public static final int UP_DIRECTION = 270;
 
     // state
@@ -34,6 +46,13 @@ public abstract class Sprite {
 
     /**
      * Create a shape at the given position, with the given size.
+     * 
+     * @param image
+     *            image from which to create Sprite
+     * @param center
+     *            center of sprite
+     * @param size
+     *            size of sprite
      */
     public Sprite(Pixmap image, Location center, Dimension size) {
         this(image, center, size, new Vector());
@@ -41,6 +60,15 @@ public abstract class Sprite {
 
     /**
      * Create a shape at the given position, with the given size, velocity, and color.
+     * 
+     * @param image
+     *            image from which to create Sprite
+     * @param center
+     *            center of sprite
+     * @param size
+     *            size of sprite
+     * @param velocity
+     *            velocity of moving sprite
      */
     public Sprite(Pixmap image, Location center, Dimension size, Vector velocity) {
         // make copies just to be sure no one else has access
@@ -56,6 +84,11 @@ public abstract class Sprite {
      * Describes how to "animate" the shape by changing its state.
      * 
      * Currently, moves by the current velocity.
+     * 
+     * @param elapsedTime
+     *            elapsed time since last update
+     * @param bounds
+     *            bounds of canvas
      */
     public void update(double elapsedTime, Dimension bounds) {
         // do not change original velocity
@@ -66,6 +99,9 @@ public abstract class Sprite {
 
     /**
      * Moves shape's center by given vector.
+     * 
+     * @param v
+     *            vector by which to translate sprite by
      */
     public void translate(Vector v) {
         myCenter.translate(v);
@@ -74,6 +110,11 @@ public abstract class Sprite {
 
     /**
      * Resets shape's center.
+     * 
+     * @param x
+     *            x-coordinate
+     * @param y
+     *            y-coordinate
      */
     public void setCenter(double x, double y) {
         myCenter.setLocation(x, y);
@@ -82,6 +123,9 @@ public abstract class Sprite {
 
     /**
      * Resets shape's center.
+     * 
+     * @param center
+     *            center of sprite
      */
     public void setCenter(Location center) {
         setCenter(center.getX(), center.getY());
@@ -145,6 +189,11 @@ public abstract class Sprite {
 
     /**
      * Scales shape's size by the given factors.
+     * 
+     * @param widthFactor
+     *            factor by which to scale width
+     * @param heightFactor
+     *            factor by which to scale height
      */
     public void scale(double widthFactor, double heightFactor) {
         mySize.setSize(mySize.width * widthFactor, mySize.height * heightFactor);
@@ -153,6 +202,11 @@ public abstract class Sprite {
 
     /**
      * Resets shape's size.
+     * 
+     * @param width
+     *            new width
+     * @param height
+     *            new height
      */
     public void setSize(int width, int height) {
         mySize.setSize(width, height);
@@ -161,6 +215,9 @@ public abstract class Sprite {
 
     /**
      * Resets shape's size.
+     * 
+     * @param size
+     *            new size
      */
     public void setSize(Dimension size) {
         setSize(size.width, size.height);
@@ -175,6 +232,11 @@ public abstract class Sprite {
 
     /**
      * Resets shape's velocity.
+     * 
+     * @param angle
+     *            direction of velocity vector
+     * @param magnitude
+     *            magnitude of velocity vector
      */
     public void setVelocity(double angle, double magnitude) {
         myVelocity = new Vector(angle, magnitude);
@@ -182,6 +244,9 @@ public abstract class Sprite {
 
     /**
      * Resets shape's velocity.
+     * 
+     * @param velocity
+     *            velocity vector
      */
     public void setVelocity(Vector velocity) {
         setVelocity(velocity.getDirection(), velocity.getMagnitude());
@@ -189,6 +254,9 @@ public abstract class Sprite {
 
     /**
      * Resets shape's image.
+     * 
+     * @param image
+     *            new image
      */
     public void setView(Pixmap image) {
         if (image != null) {
@@ -205,6 +273,9 @@ public abstract class Sprite {
 
     /**
      * Returns true if the given point is within a rectangle representing this shape.
+     * 
+     * @param other
+     *            sprite to intersect
      */
     public boolean intersects(Sprite other) {
         return getBounds().intersects(other.getBounds());
@@ -212,6 +283,9 @@ public abstract class Sprite {
 
     /**
      * Returns true if the given point is within a rectangle representing this shape.
+     * 
+     * @param pt
+     *            point to check intersection with
      */
     public boolean intersects(Point2D pt) {
         return getBounds().contains(pt);
@@ -229,6 +303,9 @@ public abstract class Sprite {
 
     /**
      * Display this shape on the screen.
+     * 
+     * @param pen
+     *            pen that draws sprite
      */
     public void paint(Graphics2D pen) {
         myView.paint(pen, myCenter, mySize, myVelocity.getDirection());

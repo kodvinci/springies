@@ -13,22 +13,22 @@ import util.Vector;
  */
 public class GravitationalForce extends Force {
     private static final int TOGGLE_GRAVITY_KEY = KeyEvent.VK_G;
-    
-    private Vector acceleration;
+
+    private Vector myAcceleration;
 
     /**
      * Creates a gravitational force with specified magnitude and direction.
      * 
-     * @param angle
-     * @param magnitude
+     * @param angle the direction of the gravitational force
+     * @param magnitude the magnitude of the gravitational force
      */
     public GravitationalForce(double angle, double magnitude) {
-        acceleration = new Vector(angle, magnitude);
+        myAcceleration = new Vector(angle, magnitude);
     }
 
     @Override
     public Vector getVectorRepresentation(Mass m, Dimension bounds) {
-        Vector forceOfGravity = new Vector(acceleration);
+        Vector forceOfGravity = new Vector(myAcceleration);
         forceOfGravity.scale(m.getMass());
         return forceOfGravity;
     }
@@ -38,5 +38,5 @@ public class GravitationalForce extends Force {
         if (key == TOGGLE_GRAVITY_KEY) {
             toggle();
         }
-    }    
+    }
 }

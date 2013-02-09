@@ -14,7 +14,13 @@ import util.Vector;
  */
 public class TopWallRepulsionForce extends WallRepulsionForce {
     private static final int TOGGLE_TOP_WALL_KEY = KeyEvent.VK_1;
-        
+
+    /**
+     * Creates a repulsion force coming from the top wall.
+     * 
+     * @param magnitude magnitude of this repulsion force
+     * @param exponent exponent value
+     */
     public TopWallRepulsionForce(double magnitude, double exponent) {
         super(magnitude, exponent);
     }

@@ -19,8 +19,8 @@ public abstract class ExponentForce extends Force {
     /**
      * Creates a new exponent force with given magnitude and exponent
      * 
-     * @param magnitude
-     * @param exponent
+     * @param magnitude magnitude of given exponent force
+     * @param exponent exponent value
      */
     public ExponentForce(double magnitude, double exponent) {
         myMagnitude = magnitude;
@@ -31,5 +31,5 @@ public abstract class ExponentForce extends Force {
             double distance) {
         double magnitude = myMagnitude / Math.pow(distance, myExponent);
         return new Vector(direction, magnitude);
-    }    
+    }
 }

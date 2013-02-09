@@ -14,7 +14,13 @@ import util.Vector;
  */
 public class LeftWallRepulsionForce extends WallRepulsionForce {
     private static final int TOGGLE_LEFT_WALL_KEY = KeyEvent.VK_4;
-    
+
+    /**
+     * Creates a repulsion force coming from the left wall.
+     * 
+     * @param magnitude magnitude of this repulsion force
+     * @param exponent exponent value
+     */
     public LeftWallRepulsionForce(double magnitude, double exponent) {
         super(magnitude, exponent);
     }

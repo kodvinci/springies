@@ -19,6 +19,7 @@ public class BounceForce extends Force {
      * Creates bounce force with given magnitude.
      * 
      * @param impulseMagnitude
+     *            magnitude of wall bounce force
      */
     public BounceForce(double impulseMagnitude) {
         myImpulseMagnitude = impulseMagnitude;
@@ -46,5 +47,5 @@ public class BounceForce extends Force {
     @Override
     public void tryToggle(int key) {
         // do nothing, bounce force is never toggled on or off
-    }    
+    }
 }

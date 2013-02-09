@@ -16,15 +16,15 @@ import util.Vector;
  */
 public class CenterOfMassForce extends ExponentForce {
     private static final int TOGGLE_CENTER_OF_MASS_KEY = KeyEvent.VK_M;
-    
+
     private Collection<Mass> myMasses;
 
     /**
      * Creates a center of mass force with a given set of masses, a magnitude, and exponent.
      * 
-     * @param masses
-     * @param magnitude
-     * @param exponent
+     * @param masses masses from which center of mass is determined
+     * @param magnitude magnitude of center of mass force
+     * @param exponent exponent value
      */
     public CenterOfMassForce(Collection<Mass> masses, double magnitude, double exponent) {
         super(magnitude, exponent);
@@ -60,8 +60,8 @@ public class CenterOfMassForce extends ExponentForce {
 
     @Override
     public void tryToggle(int key) {
-       if (key == TOGGLE_CENTER_OF_MASS_KEY) {
-           toggle();
-       }
+        if (key == TOGGLE_CENTER_OF_MASS_KEY) {
+            toggle();
+        }
     }
 }

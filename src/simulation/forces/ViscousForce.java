@@ -13,23 +13,23 @@ import util.Vector;
  */
 public class ViscousForce extends Force {
     private static final int TOGGLE_VISCOSITY_KEY = KeyEvent.VK_V;
-    
-    private double scaleValue;
+
+    private double myScaleValue;
 
     /**
      * Creates a viscous force with given strength.
      * 
-     * @param scaleValue
+     * @param scaleValue the value by which this force is scaled
      */
     public ViscousForce(double scaleValue) {
-        this.scaleValue = scaleValue;
+        this.myScaleValue = scaleValue;
     }
 
     @Override
     public Vector getVectorRepresentation(Mass m, Dimension bounds) {
         Vector force = new Vector(m.getVelocity());
         force.negate();
-        force.scale(scaleValue);
+        force.scale(myScaleValue);
         return force;
     }
 

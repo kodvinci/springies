@@ -253,11 +253,9 @@ public class Vector {
         // value based on this table:
         // http://en.wikipedia.org/wiki/Machine_epsilon#Values_for_standard_hardware_floating_point_arithmetics
         final double EPSILON = 5.96e-08;
-        if (Double.isNaN(a) && Double.isNaN(b) || Double.isInfinite(a) && Double.isInfinite(b)) {
+        if (Double.isNaN(a) && Double.isNaN(b) || Double.isInfinite(a) && Double.isInfinite(b))
             return true;
-        }
-        else {
+        else
             return Math.abs(a / b - 1) < EPSILON;
-        }
     }
 }

@@ -18,6 +18,8 @@ public class Sound {
 
     /**
      * Construct a sound with the data referred to by the given filename.
+     * 
+     * @param filename sound file from which to construct this Sound object from
      */
     public Sound(String filename) {
         setSound(filename);
@@ -25,6 +27,8 @@ public class Sound {
 
     /**
      * Set this sound to the data referred to by the given filename.
+     * 
+     * @param filename sound file from which to derive a sound
      */
     public void setSound(String filename) {
         myClip = Applet.newAudioClip(getClass().getResource(RESOURCE_LOCATION + filename));

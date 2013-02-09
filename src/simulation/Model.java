@@ -23,12 +23,13 @@ public class Model {
 
     // reasonable default values
     private static final double DEFAULT_DRAG_SPRING_CONSTANT = 0.05;
+    private static final int WALL_DELTA = 10;
 
     // keys
-    private static final int NEW_ASSEMBLY_KEY = KeyEvent.VK_N;	
-	private static final int CLEAR_ASSEMBLIES_KEY = KeyEvent.VK_C;
-	private static final int INCREASE_AREA_KEY = KeyEvent.VK_UP;
-	private static final int DECREASE_AREA_KEY = KeyEvent.VK_DOWN;
+    private static final int NEW_ASSEMBLY_KEY = KeyEvent.VK_N;
+    private static final int CLEAR_ASSEMBLIES_KEY = KeyEvent.VK_C;
+    private static final int INCREASE_AREA_KEY = KeyEvent.VK_UP;
+    private static final int DECREASE_AREA_KEY = KeyEvent.VK_DOWN;
 
     // bounds and input for game
     private Canvas myView;
@@ -37,8 +38,8 @@ public class Model {
     private List<Spring> mySprings;
     private List<Force> myForces;
     private Spring myDragSpring;
-    private Mass mousePositionMass;
-    private int toggleDelay = 0;
+    private Mass myMousePositionMass;
+    private int myToggleDelay = 0;
 
     /**
      * Create a game of the given size with the given display for its shapes.
@@ -75,8 +76,8 @@ public class Model {
         if (myDragSpring != null) {
             myDragSpring.paint(pen);
         }
-        if (mousePositionMass != null) {
-            mousePositionMass.paint(pen);
+        if (myMousePositionMass != null) {
+            myMousePositionMass.paint(pen);
         }
     }
 
@@ -94,40 +95,41 @@ public class Model {
      */
     public void update(double elapsedTime) {
         Dimension bounds = myView.getSize();
-        
+
         //
         System.out.println("Gravity is on : " + myForces.get(0).isOn());
         //
-        
+
         checkUserInput(elapsedTime, bounds);
         updateSprings(elapsedTime, bounds);
         updateMasses(elapsedTime, bounds);
     }
-    
-    private void checkUserInput(double elapsedTime, Dimension bounds) {                
+
+    private void checkUserInput(double elapsedTime, Dimension bounds) {
         checkKeyboardInput(elapsedTime, bounds);
         checkMouseInput(elapsedTime, bounds);
     }
-    
+
     private void checkKeyboardInput(double elapsedTime, Dimension bounds) {
         int key = myView.getLastKeyPressed();
         tryTogglingForces(key);
         tryChangingState(key);
     }
-    
+
     private void tryTogglingForces(int key) {
-        if (toggleDelay == 0) {
+        if (myToggleDelay == 0) {
             for (Force f : myForces) {
                 f.tryToggle(key);
             }
-            toggleDelay = 1;
-        } else {
-            --toggleDelay;
-        }        
+            myToggleDelay = 1;
+        }
+        else {
+            --myToggleDelay;
+        }
     }
-    
+
     private void tryChangingState(int key) {
-        switch(key) {
+        switch (key) {
             case NEW_ASSEMBLY_KEY:
                 myView.resetLastKeyPressed();
                 createNewAssembly();
@@ -137,29 +139,33 @@ public class Model {
                 clearAssemblies();
                 break;
             case INCREASE_AREA_KEY:
-                myView.setBounds(myView.getX()-10, myView.getY()-10, myView.getWidth()+20, myView.getHeight()+20);
+                myView.setBounds(myView.getX() - WALL_DELTA, myView.getY() - WALL_DELTA,
+                        myView.getWidth() + 2 * WALL_DELTA, myView.getHeight() + 2 * WALL_DELTA);
                 break;
             case DECREASE_AREA_KEY:
-                myView.setBounds(myView.getX()+10, myView.getY()+10, myView.getWidth()-20, myView.getHeight()-20);
+                myView.setBounds(myView.getX() + WALL_DELTA, myView.getY() + WALL_DELTA,
+                        myView.getWidth() - 2 * WALL_DELTA, myView.getHeight() - 2 * WALL_DELTA);
+                break;
+            default:
                 break;
         }
     }
-    
+
     private void checkMouseInput(double elapsedTime, Dimension bounds) {
         Point mousePosition = myView.getLastMousePosition();
         if (mousePosition == Canvas.NO_MOUSE_PRESSED) {
             myDragSpring = null;
-            mousePositionMass = null;
+            myMousePositionMass = null;
         }
         else if (myDragSpring != null) {
-            mousePositionMass.setCenter(new Location(mousePosition.getX(), mousePosition.getY()));
+            myMousePositionMass.setCenter(new Location(mousePosition.getX(), mousePosition.getY()));
             myDragSpring.update(elapsedTime, bounds);
         }
         else {
             myDragSpring = getDragSpring(mousePosition);
         }
     }
-    
+
     private void updateSprings(double elapsedTime, Dimension bounds) {
         for (Spring s : mySprings) {
             s.update(elapsedTime, bounds);
@@ -175,8 +181,9 @@ public class Model {
 
     private void applyEnvironmentalForces(Mass m, Dimension bounds) {
         for (Force f : myForces) {
-            if (f.isOn()) 
+            if (f.isOn()) {
                 m.applyForce(f, bounds);
+            }
         }
     }
 
@@ -186,9 +193,9 @@ public class Model {
      */
     private Spring getDragSpring(Point mousePosition) {
         Mass closestMass = getClosestMass(mousePosition);
-        mousePositionMass = new Mass(mousePosition.getX(), mousePosition.getY(), 0);
-        return new Spring(closestMass, mousePositionMass, closestMass.distance(mousePositionMass),
-                DEFAULT_DRAG_SPRING_CONSTANT);
+        myMousePositionMass = new Mass(mousePosition.getX(), mousePosition.getY(), 0);
+        return new Spring(closestMass, myMousePositionMass,
+                closestMass.distance(myMousePositionMass), DEFAULT_DRAG_SPRING_CONSTANT);
     }
 
     /*
