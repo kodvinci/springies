@@ -22,7 +22,7 @@ import view.Canvas;
 public class Model {
 
     // reasonable default values
-    private static final double DEFAULT_DRAG_SPRING_CONSTANT = 0.10;
+    private static final double DEFAULT_DRAG_SPRING_CONSTANT = 0.05;
 
     // keys
     private static final int NEW_ASSEMBLY_KEY = KeyEvent.VK_N;	
@@ -38,6 +38,7 @@ public class Model {
     private List<Force> myForces;
     private Spring myDragSpring;
     private Mass mousePositionMass;
+    private int toggleDelay = 0;
 
     /**
      * Create a game of the given size with the given display for its shapes.
@@ -115,9 +116,14 @@ public class Model {
     }
     
     private void tryTogglingForces(int key) {
-        for (Force f : myForces) {
-            f.tryToggle(key);
-        }
+        if (toggleDelay == 0) {
+            for (Force f : myForces) {
+                f.tryToggle(key);
+            }
+            toggleDelay = 1;
+        } else {
+            --toggleDelay;
+        }        
     }
     
     private void tryChangingState(int key) {
