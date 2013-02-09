@@ -17,7 +17,7 @@ import view.Canvas;
 /**
  * 
  * @author Leonard
- *
+ * @author Erick
  */
 public class Model {
 
@@ -29,7 +29,7 @@ public class Model {
 	private static final int CLEAR_ASSEMBLIES_KEY = KeyEvent.VK_C;
 	private static final int INCREASE_AREA_KEY = KeyEvent.VK_UP;
 	private static final int DECREASE_AREA_KEY = KeyEvent.VK_DOWN;
-	
+
     // bounds and input for game
     private Canvas myView;
     // simulation state
@@ -38,7 +38,6 @@ public class Model {
     private List<Force> myForces;
     private Spring myDragSpring;
     private Mass mousePositionMass;
-    
 
     /**
      * Create a game of the given size with the given display for its shapes.
@@ -99,30 +98,32 @@ public class Model {
         updateMasses(elapsedTime, bounds);
     }
     
-    private void checkUserInput(double elapsedTime, Dimension bounds) {
+    private void checkUserInput(double elapsedTime, Dimension bounds) {                
+        checkKeyboardInput(elapsedTime, bounds);
+        checkMouseInput(elapsedTime, bounds);
+    }
+    
+    private void checkKeyboardInput(double elapsedTime, Dimension bounds) {
         int key = myView.getLastKeyPressed();
-        if (key == NEW_ASSEMBLY_KEY) {
-            myView.resetLastKeyPressed();
-            createNewAssembly();
-        } 
-        else if (key == CLEAR_ASSEMBLIES_KEY) {
-            myView.resetLastKeyPressed();
-            clearAssemblies();
-        }
-        else if (key == INCREASE_AREA_KEY) {
-        	//increase area
-        	int width = myView.getWidth();
-        	int height = myView.getHeight();
-        	myView.setBounds(myView.getX()-10, myView.getY()-10, width+20, height+20);
-        	
-        }
-        else if (key == DECREASE_AREA_KEY) {
-        	//decrease area
-        	int width = myView.getWidth();
-        	int height = myView.getHeight();
-        	myView.setBounds(myView.getX()+10, myView.getY()+10, width-20, height-20);
-        }
-        
+        switch(key) {
+            case NEW_ASSEMBLY_KEY:
+                myView.resetLastKeyPressed();
+                createNewAssembly();
+                break;
+            case CLEAR_ASSEMBLIES_KEY:
+                myView.resetLastKeyPressed();
+                clearAssemblies();
+                break;
+            case INCREASE_AREA_KEY:
+                myView.setBounds(myView.getX()-10, myView.getY()-10, myView.getWidth()+20, myView.getHeight()+20);
+                break;
+            case DECREASE_AREA_KEY:
+                myView.setBounds(myView.getX()+10, myView.getY()+10, myView.getWidth()-20, myView.getHeight()-20);
+                break;
+        }        
+    }
+    
+    private void checkMouseInput(double elapsedTime, Dimension bounds) {
         Point mousePosition = myView.getLastMousePosition();
         if (mousePosition == Canvas.NO_MOUSE_PRESSED) {
             myDragSpring = null;
@@ -213,15 +214,15 @@ public class Model {
      */
     public void add(Force f) {
         myForces.add(f);
-    }					
-	
-	private void clearAssemblies() {
-		mySprings.clear();
-		myMasses.clear();		
-	}
-	
-	private void createNewAssembly() {
-		myView.loadEntities();
-	}
-	
+    }
+
+    private void clearAssemblies() {
+        mySprings.clear();
+        myMasses.clear();
+    }
+
+    private void createNewAssembly() {
+        myView.loadEntities();
+    }
+
 }

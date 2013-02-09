@@ -1,6 +1,7 @@
 package simulation.forces;
 
 import java.awt.Dimension;
+import java.awt.event.KeyEvent;
 
 import simulation.elements.masses.Mass;
 import util.Vector;
@@ -11,6 +12,8 @@ import util.Vector;
  * @author Erick Gonzalez
  */
 public class ViscousForce extends Force {
+    private static final int TOGGLE_VISCOSITY_KEY = KeyEvent.VK_V;
+    
     private double scaleValue;
 
     /**
@@ -28,5 +31,12 @@ public class ViscousForce extends Force {
         force.negate();
         force.scale(scaleValue);
         return force;
+    }
+
+    @Override
+    public void tryToggle(int key) {
+        if (key == TOGGLE_VISCOSITY_KEY) {
+            toggle();
+        }
     }
 }

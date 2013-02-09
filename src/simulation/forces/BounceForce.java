@@ -43,4 +43,8 @@ public class BounceForce extends Force {
         return impulse;
     }
 
+    @Override
+    public void tryToggle(int key) {
+        // do nothing, bounce force is never toggled on or off
+    }    
 }

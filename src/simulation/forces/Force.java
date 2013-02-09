@@ -11,14 +11,23 @@ import util.Vector;
  * @author Erick Gonzalez
  */
 public abstract class Force {
+    private boolean isOn;    
 
     /**
-     * Default constructor. Does nothing.
+     * Turns the force on
      */
     public Force() {
+        isOn = true;
+    }   
 
+    protected void toggle() {
+        isOn = !isOn;
     }
-
+    
+    protected boolean isOn() {
+        return isOn;
+    }
+    
     /**
      * Gets the vector representation of this force that will be applied to some mass within some
      * bounds provided.
@@ -28,5 +37,6 @@ public abstract class Force {
      * @return
      */
     public abstract Vector getVectorRepresentation(Mass m, Dimension bounds);
-
+        
+    public abstract void tryToggle(int key);
 }
