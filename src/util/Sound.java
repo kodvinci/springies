@@ -3,6 +3,7 @@ package util;
 import java.applet.Applet;
 import java.applet.AudioClip;
 
+
 /**
  * This class handles playing sounds and adds some utility functions to the AudioClip class.
  * 
@@ -21,7 +22,7 @@ public class Sound {
      * 
      * @param filename sound file from which to construct this Sound object from
      */
-    public Sound(String filename) {
+    public Sound (String filename) {
         setSound(filename);
     }
 
@@ -30,21 +31,21 @@ public class Sound {
      * 
      * @param filename sound file from which to derive a sound
      */
-    public void setSound(String filename) {
+    public void setSound (String filename) {
         myClip = Applet.newAudioClip(getClass().getResource(RESOURCE_LOCATION + filename));
     }
 
     /**
      * Play the given sound.
      */
-    public void play() {
+    public void play () {
         myClip.play();
     }
 
     /**
      * Stop playing the given sound.
      */
-    public void stop() {
+    public void stop () {
         myClip.stop();
     }
 }

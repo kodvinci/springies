@@ -1,10 +1,10 @@
 package simulation.forces;
 
 import java.awt.Dimension;
-
 import simulation.elements.masses.Mass;
 import util.Sprite;
 import util.Vector;
+
 
 /**
  * A force that is responsible for bouncing masses off a wall that they come into contact with.
@@ -19,14 +19,14 @@ public class BounceForce extends Force {
      * Creates bounce force with given magnitude.
      * 
      * @param impulseMagnitude
-     *            magnitude of wall bounce force
+     *        magnitude of wall bounce force
      */
-    public BounceForce(double impulseMagnitude) {
+    public BounceForce (double impulseMagnitude) {
         myImpulseMagnitude = impulseMagnitude;
     }
 
     @Override
-    public Vector getVectorRepresentation(Mass m, Dimension bounds) {
+    public Vector getVectorRepresentation (Mass m, Dimension bounds) {
         Vector impulse = new Vector();
         if (m.getLeft() < 0) {
             impulse = new Vector(Sprite.RIGHT_DIRECTION, myImpulseMagnitude);
@@ -45,7 +45,7 @@ public class BounceForce extends Force {
     }
 
     @Override
-    public void tryToggle(int key) {
+    public void tryToggle (int key) {
         // do nothing, bounce force is never toggled on or off
     }
 }

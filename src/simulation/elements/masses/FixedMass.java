@@ -1,9 +1,9 @@
 package simulation.elements.masses;
 
 import java.awt.Dimension;
-
 import simulation.forces.Force;
 import util.Vector;
+
 
 /**
  * Model class for a fixed mass element. A fixed mass element does not move in reaction to a force
@@ -16,23 +16,23 @@ public class FixedMass extends Mass {
      * Create a fixed mass at a given position.
      * 
      * @param x
-     *            x-coordinate
+     *        x-coordinate
      * @param y
-     *            y-coordinate
+     *        y-coordinate
      * @param mass
-     *            mass
+     *        mass
      */
-    public FixedMass(double x, double y, double mass) {
+    public FixedMass (double x, double y, double mass) {
         super(x, y, -mass);
     }
 
     @Override
-    public void applyForce(Force f, Dimension bounds) {
+    public void applyForce (Force f, Dimension bounds) {
         // do nothing when force is applied
     }
 
     @Override
-    public void applyForce(Vector v) {
+    public void applyForce (Vector v) {
         // do nothing when force is applied
     }
 

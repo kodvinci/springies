@@ -2,9 +2,9 @@ package simulation.forces;
 
 import java.awt.Dimension;
 import java.awt.event.KeyEvent;
-
 import simulation.elements.masses.Mass;
 import util.Vector;
+
 
 /**
  * A resistive force that acts in the opposite direction of a mass's velocity.
@@ -21,12 +21,12 @@ public class ViscousForce extends Force {
      * 
      * @param scaleValue the value by which this force is scaled
      */
-    public ViscousForce(double scaleValue) {
-        this.myScaleValue = scaleValue;
+    public ViscousForce (double scaleValue) {
+        myScaleValue = scaleValue;
     }
 
     @Override
-    public Vector getVectorRepresentation(Mass m, Dimension bounds) {
+    public Vector getVectorRepresentation (Mass m, Dimension bounds) {
         Vector force = new Vector(m.getVelocity());
         force.negate();
         force.scale(myScaleValue);
@@ -34,7 +34,7 @@ public class ViscousForce extends Force {
     }
 
     @Override
-    public void tryToggle(int key) {
+    public void tryToggle (int key) {
         if (key == TOGGLE_VISCOSITY_KEY) {
             toggle();
         }

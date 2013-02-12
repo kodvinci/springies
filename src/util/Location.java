@@ -2,6 +2,7 @@ package util;
 
 import java.awt.geom.Point2D;
 
+
 /**
  * This class represents a Location (in pixels) on the screen and adds some utility functions to the
  * Point2D class.
@@ -17,18 +18,17 @@ public class Location extends Point2D.Double {
     /**
      * Create a location at the origin.
      */
-    public Location() {
+    public Location () {
         super(0, 0);
     }
 
-    
     /**
      * Create a location at given (x, y) coordinates.
      * 
      * @param x x-coordinate
      * @param y y-coordinate
      */
-    public Location(double x, double y) {
+    public Location (double x, double y) {
         super(x, y);
     }
 
@@ -37,14 +37,14 @@ public class Location extends Point2D.Double {
      * 
      * @param source source point
      */
-    public Location(Point2D source) {
+    public Location (Point2D source) {
         super(source.getX(), source.getY());
     }
 
     /**
      * Reset this location to origin.
      */
-    public void reset() {
+    public void reset () {
         setLocation(0, 0);
     }
 
@@ -55,7 +55,7 @@ public class Location extends Point2D.Double {
      * 
      * @param amount the amount by which to translate this point by
      */
-    public void translate(Vector amount) {
+    public void translate (Vector amount) {
         setLocation(getX() + amount.getXChange(), getY() + amount.getYChange());
     }
 
@@ -64,7 +64,7 @@ public class Location extends Point2D.Double {
      * 
      * @param other other point
      */
-    public Vector difference(Point2D other) {
+    public Vector difference (Point2D other) {
         return new Vector(this, other);
     }
 

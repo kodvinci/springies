@@ -7,8 +7,10 @@ import java.awt.font.TextLayout;
 import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
 
+
 /**
- * This class represents text that appears on the screen and adds some utility functions to the Image
+ * This class represents text that appears on the screen and adds some utility functions to the
+ * Image
  * class.
  * 
  * @author Robert C. Duvall
@@ -27,10 +29,10 @@ public class Text {
      * Monospaced font.
      */
     public static final String FONT_MONOSPACED = "Monospaced";
-    
+
     // default values
     private static final int DEFAULT_SIZE = 14;
-    
+
     // underlying implementation
     private String myText;
     private Font myFont;
@@ -41,7 +43,7 @@ public class Text {
      * 
      * @param text text to encapsulate
      */
-    public Text(String text) {
+    public Text (String text) {
         myText = text;
         myFont = new Font("Default", Font.BOLD, DEFAULT_SIZE);
     }
@@ -49,7 +51,7 @@ public class Text {
     /**
      * Returns text of this shape
      */
-    public String getText() {
+    public String getText () {
         return myText;
     }
 
@@ -58,7 +60,7 @@ public class Text {
      * 
      * @param s string to encapsulate
      */
-    public void setText(String s) {
+    public void setText (String s) {
         myText = s;
     }
 
@@ -68,7 +70,7 @@ public class Text {
      * @param type font type
      * @param size size of font
      */
-    public void setFont(String type, int size) {
+    public void setFont (String type, int size) {
         myFont = new Font(type, Font.BOLD, size);
     }
 
@@ -79,7 +81,7 @@ public class Text {
      * @param center center of text
      * @param color color of text
      */
-    public void paint(Graphics2D pen, Point2D center, Color color) {
+    public void paint (Graphics2D pen, Point2D center, Color color) {
         Color oldColor = pen.getColor();
         // set attributes
         pen.setColor(color);
@@ -90,8 +92,9 @@ public class Text {
         Rectangle2D bounds = layout.getBounds();
         bounds.setRect(-bounds.getWidth() / 2, -height / 2, bounds.getWidth(), bounds.getHeight());
         // draw text
-        layout.draw(pen, (float) (center.getX() - bounds.getWidth() / 2), (float) (center.getY()
-                + bounds.getHeight() / 2 - layout.getDescent()));
+        layout.draw(pen, (float) (center.getX() - bounds.getWidth() / 2),
+                    (float) (center.getY()
+                             + bounds.getHeight() / 2 - layout.getDescent()));
         // unset attributes
         pen.setColor(oldColor);
     }

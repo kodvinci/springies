@@ -1,10 +1,10 @@
 package simulation.forces.exponentforces.walls;
 
 import java.awt.Dimension;
-
 import simulation.elements.masses.Mass;
 import simulation.forces.exponentforces.ExponentForce;
 import util.Vector;
+
 
 /**
  * Abstract representation of wall repulsion force.
@@ -19,10 +19,10 @@ public abstract class WallRepulsionForce extends ExponentForce {
      * @param magnitude magnitude of the wall repulsion force
      * @param exponent exponent value
      */
-    public WallRepulsionForce(double magnitude, double exponent) {
+    public WallRepulsionForce (double magnitude, double exponent) {
         super(magnitude, exponent);
     }
 
     @Override
-    public abstract Vector getVectorRepresentation(Mass m, Dimension bounds);
+    public abstract Vector getVectorRepresentation (Mass m, Dimension bounds);
 }

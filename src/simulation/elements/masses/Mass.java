@@ -1,13 +1,13 @@
 package simulation.elements.masses;
 
 import java.awt.Dimension;
-
 import simulation.forces.BounceForce;
 import simulation.forces.Force;
 import util.Location;
 import util.Pixmap;
 import util.Sprite;
 import util.Vector;
+
 
 /**
  * A class that represents a mass on the canvas.
@@ -37,20 +37,20 @@ public class Mass extends Sprite {
      * Create a mass at the given location
      * 
      * @param x
-     *            x-coordinate
+     *        x-coordinate
      * @param y
-     *            y-coordinate
+     *        y-coordinate
      * @param mass
-     *            mass
+     *        mass
      */
-    public Mass(double x, double y, double mass) {
+    public Mass (double x, double y, double mass) {
         super(DEFUALT_IMAGE, new Location(x, y), DEFAULT_SIZE);
         myMass = mass;
         myAcceleration = new Vector();
     }
 
     @Override
-    public void update(double elapsedTime, Dimension bounds) {
+    public void update (double elapsedTime, Dimension bounds) {
         applyForce(new BounceForce(DEFAULT_WALL_BOUNCE_MAGNITUDE), bounds);
         // convert force back into Mover's velocity
         getVelocity().sum(myAcceleration);
@@ -64,11 +64,11 @@ public class Mass extends Sprite {
      * present.
      * 
      * @param f
-     *            force
+     *        force
      * @param bounds
-     *            bounds of the canvas where the force is present
+     *        bounds of the canvas where the force is present
      */
-    public void applyForce(Force f, Dimension bounds) {
+    public void applyForce (Force f, Dimension bounds) {
         applyForce(f.getVectorRepresentation(this, bounds));
     }
 
@@ -76,9 +76,9 @@ public class Mass extends Sprite {
      * Apply the vector representation of a force to this mass.
      * 
      * @param v
-     *            vector representation of force
+     *        vector representation of force
      */
-    public void applyForce(Vector v) {
+    public void applyForce (Vector v) {
         myAcceleration.sum(v);
     }
 
@@ -86,10 +86,10 @@ public class Mass extends Sprite {
      * Convenience method. Finds distance between this mass and another.
      * 
      * @param other
-     *            other mass
+     *        other mass
      * @return distance between this mass and other
      */
-    public double distance(Mass other) {
+    public double distance (Mass other) {
         // this is a little awkward, so hide it
         return new Location(getX(), getY()).distance(new Location(other.getX(), other.getY()));
     }
@@ -98,7 +98,7 @@ public class Mass extends Sprite {
      * 
      * @return mass value
      */
-    public double getMass() {
+    public double getMass () {
         return myMass;
     }
 }

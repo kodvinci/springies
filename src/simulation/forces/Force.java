@@ -1,9 +1,9 @@
 package simulation.forces;
 
 import java.awt.Dimension;
-
 import simulation.elements.masses.Mass;
 import util.Vector;
+
 
 /**
  * Represents a Force.
@@ -16,7 +16,7 @@ public abstract class Force {
     /**
      * Turns the force on
      */
-    public Force() {
+    public Force () {
         myVisiblity = true;
     }
 
@@ -24,11 +24,11 @@ public abstract class Force {
      * 
      * @return true if force is present
      */
-    public boolean isOn() {
+    public boolean isOn () {
         return myVisiblity;
     }
 
-    protected void toggle() {
+    protected void toggle () {
         myVisiblity = !myVisiblity;
     }
 
@@ -37,17 +37,17 @@ public abstract class Force {
      * bounds provided.
      * 
      * @param m
-     *            a mass the force is applied to
+     *        a mass the force is applied to
      * @param bounds
-     *            the bounds within which the force is present
+     *        the bounds within which the force is present
      * @return
      */
-    public abstract Vector getVectorRepresentation(Mass m, Dimension bounds);
+    public abstract Vector getVectorRepresentation (Mass m, Dimension bounds);
 
     /**
      * Tries to toggle the force on or off if the given key matches the force's toggle key
      * 
      * @param key the given key pressed
      */
-    public abstract void tryToggle(int key);
+    public abstract void tryToggle (int key);
 }

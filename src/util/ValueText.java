@@ -16,7 +16,7 @@ public class ValueText extends Text {
      * @param label label of value text
      * @param initialValue initial value
      */
-    public ValueText(String label, int initialValue) {
+    public ValueText (String label, int initialValue) {
         super(label + " " + initialValue);
         myValue = initialValue;
         myInitialValue = initialValue;
@@ -26,7 +26,7 @@ public class ValueText extends Text {
     /**
      * Returns displayed value.
      */
-    public int getValue() {
+    public int getValue () {
         return myValue;
     }
 
@@ -35,7 +35,7 @@ public class ValueText extends Text {
      * 
      * @param value value to add to current value
      */
-    public void updateValue(int value) {
+    public void updateValue (int value) {
         myValue += value;
         setText(myLabel + " " + myValue);
     }
@@ -43,7 +43,7 @@ public class ValueText extends Text {
     /**
      * Reset displayed value to its initial value
      */
-    public void resetValue() {
+    public void resetValue () {
         myValue = myInitialValue;
         setText(myLabel + " " + myValue);
     }

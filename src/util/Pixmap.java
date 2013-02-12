@@ -4,8 +4,8 @@ import java.awt.Dimension;
 import java.awt.Graphics2D;
 import java.awt.geom.AffineTransform;
 import java.awt.geom.Point2D;
-
 import javax.swing.ImageIcon;
+
 
 /**
  * This class represents an image on the screen and adds some utility functions to the Image class.
@@ -26,7 +26,7 @@ public class Pixmap {
      * 
      * @param fileName filename from which to create this Pixmap
      */
-    public Pixmap(String fileName) {
+    public Pixmap (String fileName) {
         setImage(fileName);
     }
 
@@ -35,7 +35,7 @@ public class Pixmap {
      * 
      * @param other Pixmap that will be copied
      */
-    public Pixmap(Pixmap other) {
+    public Pixmap (Pixmap other) {
         this(other.myFileName);
     }
 
@@ -44,7 +44,7 @@ public class Pixmap {
      * 
      * @param fileName filename of new image to set
      */
-    public void setImage(String fileName) {
+    public void setImage (String fileName) {
         myImage = new ImageIcon(getClass().getResource(RESOURCE_LOCATION + fileName)).getImage();
         myFileName = fileName;
     }
@@ -56,7 +56,7 @@ public class Pixmap {
      * @param center center of image
      * @param size size of image
      */
-    public void paint(Graphics2D pen, Point2D center, Dimension size) {
+    public void paint (Graphics2D pen, Point2D center, Dimension size) {
         paint(pen, center, size, 0);
     }
 
@@ -68,7 +68,7 @@ public class Pixmap {
      * @param size size of image
      * @param angle angle by which to rotate image by
      */
-    public void paint(Graphics2D pen, Point2D center, Dimension size, double angle) {
+    public void paint (Graphics2D pen, Point2D center, Dimension size, double angle) {
         // save current state of the graphics area
         AffineTransform old = new AffineTransform(pen.getTransform());
         // move graphics area to center of this shape

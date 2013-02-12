@@ -16,13 +16,12 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.Set;
 import java.util.TreeSet;
-
 import javax.swing.JComponent;
 import javax.swing.JFileChooser;
 import javax.swing.Timer;
-
 import simulation.Factory;
 import simulation.Model;
+
 
 /**
  * Creates an area of the screen in which the game will be drawn that supports:
@@ -61,7 +60,7 @@ public class Canvas extends JComponent {
     /**
      * Create a panel so that it knows its size
      */
-    public Canvas(Dimension size) {
+    public Canvas (Dimension size) {
         // set size (a bit of a pain)
         setPreferredSize(size);
         setSize(size);
@@ -78,10 +77,10 @@ public class Canvas extends JComponent {
      * this container needs to be displayed (i.e., creation, uncovering, change in status)
      * 
      * @param pen
-     *            used to paint shape on the screen
+     *        used to paint shape on the screen
      */
     @Override
-    public void paintComponent(Graphics pen) {
+    public void paintComponent (Graphics pen) {
         pen.setColor(Color.WHITE);
         pen.fillRect(0, 0, getSize().width, getSize().height);
         // first time needs to be special cased :(
@@ -93,36 +92,36 @@ public class Canvas extends JComponent {
     /**
      * Returns last key pressed by the user or -1 if nothing is pressed.
      */
-    public int getLastKeyPressed() {
+    public int getLastKeyPressed () {
         return myLastKeyPressed;
     }
 
-    public void resetLastKeyPressed() {
+    public void resetLastKeyPressed () {
         myLastKeyPressed = NO_KEY_PRESSED;
     }
 
     /**
      * Returns all keys currently pressed by the user.
      */
-    public Collection<Integer> getKeysPressed() {
+    public Collection<Integer> getKeysPressed () {
         return Collections.unmodifiableSet(myKeys);
     }
 
     /**
      * Returns last position of the mouse in the canvas.
      */
-    public Point getLastMousePosition() {
+    public Point getLastMousePosition () {
         return myLastMousePosition;
     }
 
     /**
      * Start the animation.
      */
-    public void start() {
+    public void start () {
         // create a timer to animate the canvas
         myTimer = new Timer(DEFAULT_DELAY, new ActionListener() {
             @Override
-            public void actionPerformed(ActionEvent e) {
+            public void actionPerformed (ActionEvent e) {
                 step();
             }
         });
@@ -135,14 +134,14 @@ public class Canvas extends JComponent {
     /**
      * Stop the animation.
      */
-    public void stop() {
+    public void stop () {
         myTimer.stop();
     }
 
     /**
      * Take one step in the animation.
      */
-    public void step() {
+    public void step () {
         mySimulation.update((double) FRAMES_PER_SECOND / ONE_SECOND);
         // indirectly causes paint to be called
         repaint();
@@ -151,19 +150,19 @@ public class Canvas extends JComponent {
     /**
      * Create listeners that will update state based on user input.
      */
-    private void setInputListeners() {
+    private void setInputListeners () {
         // initialize input state
         myLastKeyPressed = NO_KEY_PRESSED;
         myKeys = new TreeSet<Integer>();
         addKeyListener(new KeyAdapter() {
             @Override
-            public void keyPressed(KeyEvent e) {
+            public void keyPressed (KeyEvent e) {
                 myLastKeyPressed = e.getKeyCode();
                 myKeys.add(e.getKeyCode());
             }
 
             @Override
-            public void keyReleased(KeyEvent e) {
+            public void keyReleased (KeyEvent e) {
                 myLastKeyPressed = NO_KEY_PRESSED;
                 myKeys.remove(e.getKeyCode());
             }
@@ -171,30 +170,30 @@ public class Canvas extends JComponent {
         myLastMousePosition = NO_MOUSE_PRESSED;
         addMouseMotionListener(new MouseMotionAdapter() {
             @Override
-            public void mouseDragged(MouseEvent e) {
+            public void mouseDragged (MouseEvent e) {
                 myLastMousePosition = e.getPoint();
             }
         });
         addMouseListener(new MouseAdapter() {
             @Override
-            public void mousePressed(MouseEvent e) {
+            public void mousePressed (MouseEvent e) {
                 myLastMousePosition = e.getPoint();
             }
 
             @Override
-            public void mouseReleased(MouseEvent e) {
+            public void mouseReleased (MouseEvent e) {
                 myLastMousePosition = NO_MOUSE_PRESSED;
             }
         });
     }
 
     // load model from file chosen by user
-    public void loadModel() {
+    public void loadModel () {
         loadEntities();
         loadForces();
     }
 
-    public void loadEntities() {
+    public void loadEntities () {
         Factory f = new Factory();
         int response = INPUT_CHOOSER.showOpenDialog(null);
         if (response == JFileChooser.APPROVE_OPTION) {
@@ -202,7 +201,7 @@ public class Canvas extends JComponent {
         }
     }
 
-    public void loadForces() {
+    public void loadForces () {
         Factory f = new Factory();
         int response = INPUT_CHOOSER.showOpenDialog(null);
         if (response == JFileChooser.APPROVE_OPTION) {

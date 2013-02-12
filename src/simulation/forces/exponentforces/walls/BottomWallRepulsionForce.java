@@ -2,10 +2,10 @@ package simulation.forces.exponentforces.walls;
 
 import java.awt.Dimension;
 import java.awt.event.KeyEvent;
-
 import simulation.elements.masses.Mass;
 import util.Sprite;
 import util.Vector;
+
 
 /**
  * Represents a repulsion force imposed by the bottom wall.
@@ -21,12 +21,12 @@ public class BottomWallRepulsionForce extends WallRepulsionForce {
      * @param magnitude the magnitude of this repulsion force
      * @param exponent exponent value
      */
-    public BottomWallRepulsionForce(double magnitude, double exponent) {
+    public BottomWallRepulsionForce (double magnitude, double exponent) {
         super(magnitude, exponent);
     }
 
     @Override
-    public Vector getVectorRepresentation(Mass m, Dimension bounds) {
+    public Vector getVectorRepresentation (Mass m, Dimension bounds) {
         double direction = Sprite.UP_DIRECTION;
         double distance = bounds.getHeight() - m.getY();
 
@@ -34,7 +34,7 @@ public class BottomWallRepulsionForce extends WallRepulsionForce {
     }
 
     @Override
-    public void tryToggle(int key) {
+    public void tryToggle (int key) {
         if (key == TOGGLE_BOTTOM_WALL_KEY) {
             toggle();
         }

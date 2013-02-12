@@ -1,8 +1,8 @@
 package simulation.elements.springs;
 
 import java.awt.Dimension;
-
 import simulation.elements.masses.Mass;
+
 
 /**
  * This element connects two mass elements and provide movement by contracting and expanding the
@@ -26,24 +26,24 @@ public class Muscle extends Spring {
     /**
      * 
      * @param start
-     *            starting mass
+     *        starting mass
      * @param end
-     *            ending mass
+     *        ending mass
      * @param length
-     *            length of spring
+     *        length of spring
      * @param kVal
-     *            spring constant
+     *        spring constant
      * @param amplitude
-     *            amplitude
+     *        amplitude
      */
-    public Muscle(Mass start, Mass end, double length, double kVal, double amplitude) {
+    public Muscle (Mass start, Mass end, double length, double kVal, double amplitude) {
         super(start, end, length, kVal);
         myRestLength = length;
         myBeta = amplitude;
     }
 
     @Override
-    public void update(double elapsedTime, Dimension bounds) {
+    public void update (double elapsedTime, Dimension bounds) {
         setMyLength(myRestLength * (1 + ALPHA * myBeta * Math.sin(OMEGA + PHI)));
         super.update(elapsedTime, bounds);
     }
