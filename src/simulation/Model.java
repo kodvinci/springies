@@ -2,15 +2,12 @@ package simulation;
 
 import java.awt.Dimension;
 import java.awt.Graphics2D;
-import java.awt.Point;
 import java.awt.Toolkit;
-import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.List;
 import simulation.elements.masses.Mass;
 import simulation.elements.springs.Spring;
 import simulation.forces.Force;
-import util.Location;
 import view.Canvas;
 
 
@@ -21,16 +18,6 @@ import view.Canvas;
  */
 public class Model {
 
-    // reasonable default values
-    private static final double DEFAULT_DRAG_SPRING_CONSTANT = 0.05;
-    private static final int BOUNDS_DELTA = 10;
-
-    // keys
-    private static final int NEW_ASSEMBLY_KEY = KeyEvent.VK_N;
-    private static final int CLEAR_ASSEMBLIES_KEY = KeyEvent.VK_C;
-    private static final int INCREASE_AREA_KEY = KeyEvent.VK_UP;
-    private static final int DECREASE_AREA_KEY = KeyEvent.VK_DOWN;
-
     // bounds and input for game
     private Canvas myView;
     // simulation state
@@ -39,7 +26,7 @@ public class Model {
     private List<Force> myForces;
     private Spring myDragSpring;
     private Mass myMousePositionMass;
-    private int myToggleDelay = 0;
+    private UserInputLister myUserInputListener;
 
     /**
      * Create a game of the given size with the given display for its shapes.
@@ -99,75 +86,12 @@ public class Model {
         //
         // System.out.println("Gravity is on : " + myForces.get(0).isOn());
         //
+        myUserInputListener = new UserInputLister(myView, myMasses, myForces, mySprings);
+        myUserInputListener.checkKeyboardInput(elapsedTime, bounds);
+        myUserInputListener.checkMouseInput(elapsedTime, bounds);
 
-        checkUserInput(elapsedTime, bounds);
         updateSprings(elapsedTime, bounds);
         updateMasses(elapsedTime, bounds);
-    }
-
-    private void checkUserInput (double elapsedTime, Dimension bounds) {
-        checkKeyboardInput(elapsedTime, bounds);
-        checkMouseInput(elapsedTime, bounds);
-    }
-
-    private void checkKeyboardInput (double elapsedTime, Dimension bounds) {
-        int key = myView.getLastKeyPressed();
-        tryTogglingForces(key);
-        tryChangingState(key);
-    }
-
-    private void tryTogglingForces (int key) {
-        if (myToggleDelay == 0) {
-            for (Force f : myForces) {
-                f.tryToggle(key);
-            }
-            myToggleDelay = 1;
-        }
-        else {
-            --myToggleDelay;
-        }
-    }
-
-    private void tryChangingState (int key) {
-        switch (key) {
-            case NEW_ASSEMBLY_KEY:
-                myView.resetLastKeyPressed();
-                createNewAssembly();
-                break;
-            case CLEAR_ASSEMBLIES_KEY:
-                myView.resetLastKeyPressed();
-                clearAssemblies();
-                break;
-            case INCREASE_AREA_KEY:
-                changeSizeOfView(-BOUNDS_DELTA, BOUNDS_DELTA);
-                break;
-            case DECREASE_AREA_KEY:
-                changeSizeOfView(BOUNDS_DELTA, -BOUNDS_DELTA);
-                break;
-            default:
-                break;
-        }
-    }
-
-    private void changeSizeOfView (int originDelta, int rectangleDelta) {
-        myView.setBounds(myView.getX() + originDelta, myView.getY() + originDelta,
-                         myView.getWidth() + 2 * rectangleDelta, myView.getHeight() + 2 *
-                                                                 rectangleDelta);
-    }
-
-    private void checkMouseInput (double elapsedTime, Dimension bounds) {
-        Point mousePosition = myView.getLastMousePosition();
-        if (mousePosition == Canvas.NO_MOUSE_PRESSED) {
-            myDragSpring = null;
-            myMousePositionMass = null;
-        }
-        else if (myDragSpring != null) {
-            myMousePositionMass.setCenter(new Location(mousePosition.getX(), mousePosition.getY()));
-            myDragSpring.update(elapsedTime, bounds);
-        }
-        else {
-            myDragSpring = getDragSpring(mousePosition);
-        }
     }
 
     private void updateSprings (double elapsedTime, Dimension bounds) {
@@ -189,35 +113,6 @@ public class Model {
                 m.applyForce(f, bounds);
             }
         }
-    }
-
-    /*
-     * Creates a new spring between the current clicked mouse position, and the closest mass to that
-     * mouse position.
-     */
-    private Spring getDragSpring (Point mousePosition) {
-        Mass closestMass = getClosestMass(mousePosition);
-        myMousePositionMass = new Mass(mousePosition.getX(), mousePosition.getY(), 0);
-        return new Spring(closestMass, myMousePositionMass,
-                          closestMass.distance(myMousePositionMass), DEFAULT_DRAG_SPRING_CONSTANT);
-    }
-
-    /*
-     * Retrieves the closest mass to the last clicked mouse position.
-     */
-    private Mass getClosestMass (Point mousePosition) {
-        Mass closestMass = null;
-        double smallestDistance = Double.MAX_VALUE;
-
-        for (Mass m : myMasses) {
-            Location massLocation = new Location(m.getX(), m.getY());
-            double currentDistance = massLocation.distance(mousePosition);
-            if (currentDistance < smallestDistance) {
-                smallestDistance = currentDistance;
-                closestMass = m;
-            }
-        }
-        return closestMass;
     }
 
     /**
@@ -248,15 +143,6 @@ public class Model {
      */
     public void add (Force f) {
         myForces.add(f);
-    }
-
-    private void clearAssemblies () {
-        mySprings.clear();
-        myMasses.clear();
-    }
-
-    private void createNewAssembly () {
-        myView.loadEntities();
     }
 
 }
