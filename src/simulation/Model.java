@@ -12,6 +12,8 @@ import view.Canvas;
 
 
 /**
+ * This class paints the elements and also updates them after a given time interval.
+ * It also applies environmental forces on the elements that are loaded on the canvas.
  * 
  * @author Leonard
  * @author Erick
@@ -24,8 +26,6 @@ public class Model {
     private List<Mass> myMasses;
     private List<Spring> mySprings;
     private List<Force> myForces;
-    private Spring myDragSpring;
-    private Mass myMousePositionMass;
     private UserInputLister myUserInputListener;
 
     /**
@@ -84,10 +84,7 @@ public class Model {
     public void update (double elapsedTime) {
         Dimension bounds = myView.getSize();
 
-        //
-        // System.out.println("Gravity is on : " + myForces.get(0).isOn());
-        //
-        myUserInputListener.checkKeyboardInput(elapsedTime, bounds);
+        myUserInputListener.checkKeyboardInput();
         myUserInputListener.checkMouseInput(elapsedTime, bounds);
 
         updateSprings(elapsedTime, bounds);

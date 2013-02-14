@@ -128,15 +128,13 @@ public class Factory {
                         myModel.add(createWallRepulsionForce(line));
                     }
                 }
-                // add default forces
-                if (myDefaultForces.size() > 0){
-                    for (String k : myDefaultForces.keySet()) {
-                        myModel.add(myDefaultForces.get(k));
-                    }
-                }
             }
             // close file
             input.close();
+            // add default forces
+            for (String k : myDefaultForces.keySet()) {
+                myModel.add(myDefaultForces.get(k));
+            }
         }
         catch (FileNotFoundException e) {
             // should not happen because File came from user selection
@@ -147,20 +145,20 @@ public class Factory {
     private void loadDefaultForces () {
         myDefaultForces = new HashMap<String, Force>();
 
-//        myDefaultForces.put(GRAVITY_KEYWORD, new GravitationalForce(GRAVITY_DIRECTION,
-//                                                                    GRAVITY_MAGNITUDE));
-//        myDefaultForces.put(VISCOSITY_KEYWORD, new ViscousForce(VISCOSITY));
-//        myDefaultForces.put(CENTER_MASS_KEYWORD, new CenterOfMassForce(myMasses.values(),
-//         CENTERMASS_MAGNITUDE,
-//         TWO_EXPONENT));
-//        myDefaultForces.put(TOP_WALL_KEYWORD, new TopWallRepulsionForce(WALL_FORCE_MAGNITUDE,
-//                                                                        ZERO_EXPONENT));
-//        myDefaultForces.put(RIGHT_WALL_KEYWORD, new RightWallRepulsionForce(WALL_FORCE_MAGNITUDE,
-//                                                                            ZERO_EXPONENT));
-//        myDefaultForces.put(BOTTOM_WALL_KEYWORD, new BottomWallRepulsionForce(WALL_FORCE_MAGNITUDE,
-//                                                                              ZERO_EXPONENT));
-//        myDefaultForces.put(LEFT_WALL_KEYWORD, new LeftWallRepulsionForce(WALL_FORCE_MAGNITUDE,
-//                                                                          ZERO_EXPONENT));
+        myDefaultForces.put("GRAVITY_KEYWORD", new GravitationalForce(GRAVITY_DIRECTION,
+                                                                      GRAVITY_MAGNITUDE));
+        myDefaultForces.put(VISCOSITY_KEYWORD, new ViscousForce(VISCOSITY));
+        // myDefaultForces.put(CENTER_MASS_KEYWORD, new CenterOfMassForce(myMasses.values(),
+        // CENTERMASS_MAGNITUDE,
+        // TWO_EXPONENT));
+        myDefaultForces.put(TOP_WALL_KEYWORD, new TopWallRepulsionForce(WALL_FORCE_MAGNITUDE,
+                                                                        ZERO_EXPONENT));
+        myDefaultForces.put(RIGHT_WALL_KEYWORD, new RightWallRepulsionForce(WALL_FORCE_MAGNITUDE,
+                                                                            ZERO_EXPONENT));
+        myDefaultForces.put(BOTTOM_WALL_KEYWORD, new BottomWallRepulsionForce(WALL_FORCE_MAGNITUDE,
+                                                                              ZERO_EXPONENT));
+        myDefaultForces.put(LEFT_WALL_KEYWORD, new LeftWallRepulsionForce(WALL_FORCE_MAGNITUDE,
+                                                                          ZERO_EXPONENT));
     }
 
     private WallRepulsionForce createWallRepulsionForce (Scanner line) {

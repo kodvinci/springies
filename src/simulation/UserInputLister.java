@@ -12,7 +12,11 @@ import view.Canvas;
 
 
 /**
- * Checks for user keyboard presses and mouse clicks and mouse drags
+ * This class checks for user keyboard presses and mouse clicks & drags.
+ * It then executes the commands associated with such user input. Such
+ * commands include turning forces on and off, changing the size of the
+ * view, loading new or clearing all assemblies, and creating springs and
+ * masses for mouse drags.
  * 
  * @author Leonard
  * @author Erick
@@ -43,9 +47,13 @@ public class UserInputLister {
     /**
      * 
      * @param canvas
+     *        size of view
      * @param masses
+     *        loaded masses
      * @param forces
+     *        loaded forces
      * @param springs
+     *        loaded springs
      */
     public UserInputLister (Canvas canvas,
                             List<Mass> masses,
@@ -58,11 +66,9 @@ public class UserInputLister {
     }
 
     /**
-     * 
-     * @param elapsedTime
-     * @param bounds
+     * check for user input
      */
-    public void checkKeyboardInput (double elapsedTime, Dimension bounds) {
+    public void checkKeyboardInput () {
         int key = myView.getLastKeyPressed();
         tryTogglingForces(key);
         tryChangingState(key);
@@ -71,6 +77,7 @@ public class UserInputLister {
     /**
      * 
      * @param key
+     *          key pressed
      */
     private void tryTogglingForces (int key) {
         if (myToggleDelay == 0) {
@@ -87,6 +94,7 @@ public class UserInputLister {
     /**
      * 
      * @param key
+     *          key pressed
      */
     private void tryChangingState (int key) {
         switch (key) {
@@ -112,7 +120,9 @@ public class UserInputLister {
     /**
      * 
      * @param originDelta
+     *          the amount to change the coordinate origin by
      * @param rectangleDelta
+     *          amount to adjust the rectangle sides by
      */
     private void changeSizeOfView (int originDelta, int rectangleDelta) {
         myView.setBounds(myView.getX() + originDelta, myView.getY() + originDelta,
@@ -123,7 +133,9 @@ public class UserInputLister {
     /**
      * 
      * @param elapsedTime
+     *        update interval
      * @param bounds
+     *        view size
      */
     public void checkMouseInput (double elapsedTime, Dimension bounds) {
         Point mousePosition = myView.getLastMousePosition();
@@ -144,9 +156,9 @@ public class UserInputLister {
      * 
      * @param mousePosition
      * @return
-     *          A new spring between the current clicked mouse position, 
-     *and the closest mass to that mouse position.
-     *          
+     *         A new spring between the current clicked mouse position,
+     *         and the closest mass to that mouse position.
+     * 
      */
     private Spring getDragSpring (Point mousePosition) {
         Mass closestMass = getClosestMass(mousePosition);
@@ -157,9 +169,9 @@ public class UserInputLister {
 
     /**
      * @param mousePosition
-     *          last clicked mouse position
+     *        last clicked mouse position
      * @return
-     *          the closest mass to the last clicked mouse position.
+     *         the closest mass to the last clicked mouse position.
      */
     private Mass getClosestMass (Point mousePosition) {
         Mass closestMass = null;
@@ -190,12 +202,23 @@ public class UserInputLister {
     private void createNewAssembly () {
         myView.loadEntities();
     }
-
+    
+    /**
+     * 
+     * @return
+     *          spring for dragging
+     */
     public Spring getMyDragSpring () {
         return myDragSpring;
     }
+
+    /**
+     * 
+     * @return
+     *          position of mouse
+     */
     public Mass getMyMousePositionMass () {
         return myMousePositionMass;
     }
-    
+
 }
