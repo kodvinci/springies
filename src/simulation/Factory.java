@@ -47,19 +47,19 @@ public class Factory {
     private static final int BOTTOM_WALL = 3;
     private static final int LEFT_WALL = 4;
 
-    // mass IDs
-    private Map<Integer, Mass> myMasses = new HashMap<Integer, Mass>();
-    private Map<String, Force> myDefaultForces;
-    private Model myModel;
-
     // default force values
     private static final double GRAVITY_DIRECTION = 90.0;
     private static final double GRAVITY_MAGNITUDE = 10.0;
     private static final double VISCOSITY = 0.5;
-    private static final double CENTERMASS_MAGNITUDE = 5000.0;
+    private static final double CENTERMASS_MAGNITUDE = 100.0;
     private static final double TWO_EXPONENT = 2.0;
     private static final double WALL_FORCE_MAGNITUDE = 100.0;
     private static final double ZERO_EXPONENT = 0.0;
+
+    // mass IDs
+    private Map<Integer, Mass> myMasses = new HashMap<Integer, Mass>();
+    private Map<String, Force> myDefaultForces;
+    private Model myModel;
 
     /**
      * Parses elements from a formatted file and stores them.
@@ -149,7 +149,8 @@ public class Factory {
                                                                     GRAVITY_MAGNITUDE));
         myDefaultForces.put(VISCOSITY_KEYWORD, new ViscousForce(VISCOSITY));
         // myDefaultForces.put(CENTER_MASS_KEYWORD, new CenterOfMassForce(myMasses.values(),
-        // CENTERMASS_MAGNITUDE, TWO_EXPONENT));
+        // CENTERMASS_MAGNITUDE,
+        // TWO_EXPONENT));
         myDefaultForces.put(TOP_WALL_KEYWORD, new TopWallRepulsionForce(WALL_FORCE_MAGNITUDE,
                                                                         ZERO_EXPONENT));
         myDefaultForces.put(RIGHT_WALL_KEYWORD, new RightWallRepulsionForce(WALL_FORCE_MAGNITUDE,

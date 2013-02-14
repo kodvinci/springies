@@ -23,7 +23,7 @@ public class Model {
 
     // reasonable default values
     private static final double DEFAULT_DRAG_SPRING_CONSTANT = 0.05;
-    private static final int WALL_DELTA = 10;
+    private static final int BOUNDS_DELTA = 10;
 
     // keys
     private static final int NEW_ASSEMBLY_KEY = KeyEvent.VK_N;
@@ -139,18 +139,20 @@ public class Model {
                 clearAssemblies();
                 break;
             case INCREASE_AREA_KEY:
-                myView.setBounds(myView.getX() - WALL_DELTA, myView.getY() - WALL_DELTA,
-                                 myView.getWidth() + 2 * WALL_DELTA, myView.getHeight() + 2 *
-                                                                     WALL_DELTA);
+                changeSizeOfView(-BOUNDS_DELTA, BOUNDS_DELTA);
                 break;
             case DECREASE_AREA_KEY:
-                myView.setBounds(myView.getX() + WALL_DELTA, myView.getY() + WALL_DELTA,
-                                 myView.getWidth() - 2 * WALL_DELTA, myView.getHeight() - 2 *
-                                                                     WALL_DELTA);
+                changeSizeOfView(BOUNDS_DELTA, -BOUNDS_DELTA);
                 break;
             default:
                 break;
         }
+    }
+
+    private void changeSizeOfView (int originDelta, int rectangleDelta) {
+        myView.setBounds(myView.getX() + originDelta, myView.getY() + originDelta,
+                         myView.getWidth() + 2 * rectangleDelta, myView.getHeight() + 2 *
+                                                                 rectangleDelta);
     }
 
     private void checkMouseInput (double elapsedTime, Dimension bounds) {
