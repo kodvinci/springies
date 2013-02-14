@@ -39,6 +39,7 @@ public class Model {
         myMasses = new ArrayList<Mass>();
         mySprings = new ArrayList<Spring>();
         myForces = new ArrayList<Force>();
+        myUserInputListener = new UserInputLister(myView, myMasses, myForces, mySprings);
     }
 
     /**
@@ -60,11 +61,11 @@ public class Model {
         for (Spring s : mySprings) {
             s.paint(pen);
         }
-        if (myDragSpring != null) {
-            myDragSpring.paint(pen);
+        if (myUserInputListener.getMyDragSpring() != null) {
+            myUserInputListener.getMyDragSpring().paint(pen);
         }
-        if (myMousePositionMass != null) {
-            myMousePositionMass.paint(pen);
+        if (myUserInputListener.getMyMousePositionMass() != null) {
+            myUserInputListener.getMyMousePositionMass().paint(pen);
         }
     }
 
@@ -86,7 +87,6 @@ public class Model {
         //
         // System.out.println("Gravity is on : " + myForces.get(0).isOn());
         //
-        myUserInputListener = new UserInputLister(myView, myMasses, myForces, mySprings);
         myUserInputListener.checkKeyboardInput(elapsedTime, bounds);
         myUserInputListener.checkMouseInput(elapsedTime, bounds);
 

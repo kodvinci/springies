@@ -191,4 +191,11 @@ public class UserInputLister {
         myView.loadEntities();
     }
 
+    public Spring getMyDragSpring () {
+        return myDragSpring;
+    }
+    public Mass getMyMousePositionMass () {
+        return myMousePositionMass;
+    }
+    
 }
