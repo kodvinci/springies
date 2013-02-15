@@ -10,6 +10,30 @@ This project demonstrates how masses and springs interact with each other
 when various forces are applied on them. Such forces include gravity, center
 of mass, viscosity and wall forces. 
 
+			Overview
+The core of this project's design is the inheritance hierarchy. The various force
+classes inherit from the Force class while the mass and spring elements inherit from 
+the Sprite class. The FixedMass class inherits from the Mass class while the Muscle class
+inherits from the Spring class. We did not group the various drawable elements under one 
+super class since we felt that it was easier to draw the elements individually. The drawing
+is handled by the Model class which also takes care of regularly updating the elements. 
+User input, such as key presses and mouse movements, are handled by the UserInputListener class.
+The Model class regularly checks with the UserInputListener class every time the update method
+is called.
+
+To load various assemblies, we simply create the respective elements and store them in the Lists
+where trhe elements for the current assembly(ies) are stored. We did not feel the need for an 
+Assembly class since the project does not require for any differenetion between the existing
+assemblies, e.g, there is no requirement to clear a particular assembly or to have one particular
+assembly being impacted by a particular set of forces only.
+
+
+	Key codes
+1. Press "n" to load new assemblies.
+2. Press "c" to clear all assemblies.
+3. Press "g", "v", "m" to turn on or off the force of gravity, viscosity or center of mass respectively.
+4. Press "1", "2", "3", "4" to turn on or off the top, right, bottom, and left wall forces respectively.
+
 The project is organized into various packages that perform particular functions.
 
 	1. Simulation Package
