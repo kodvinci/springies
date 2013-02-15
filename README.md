@@ -37,7 +37,7 @@ assembly being impacted by a particular set of forces only.
 6. Press the "down" arrow key to decrease the size of the view area.
 7. Click on the mouse to drag around the mass nearest to the mouse click area.
 
-	Known Problems
+uu	Known Problems
 1. The masses and the springs occassionally disappear beyond the view bounds.
 2. The center of mass force does not function properly.
 
