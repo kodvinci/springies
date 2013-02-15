@@ -37,9 +37,9 @@ assembly being impacted by a particular set of forces only.
 6. Press the "down" arrow key to decrease the size of the view area.
 7. Click on the mouse to drag around the mass nearest to the mouse click area.
 
-uu	Known Problems
+	Known Problems
 1. The masses and the springs occassionally disappear beyond the view bounds.
-2. The center of mass force does not function properly.
+2. The center of mass force does not load properly.
 
 The project is organized into various packages based on the functions of the classes in them. 
 
@@ -143,7 +143,7 @@ Extends ExponentForce class. Abstract class representing the repulsion forces
 of the walls. Forces the mass to change direction.
 
 The following classes implement the WallRepulsionForce class:
-a. TopWallRepulsionForce - repulsion force of top wall. Acts downwards
-b. BottomWallRepulsionForce - repulsion force of the bottom wall. Acts upwards
-c. LeftWallReplsuionForce - repulsion force of the left wall. Acts rightwards
-d. RightWallRepulsionForce - repulsion force of the right wall. Acts leftwards
+1. TopWallRepulsionForce - repulsion force of top wall. Acts downwards.
+2. RightWallRepulsionForce - repulsion force of the right wall. Acts leftwards.
+3. BottomWallRepulsionForce - repulsion force of the bottom wall. Acts upwards.
+4. LeftWallReplsuionForce - repulsion force of the left wall. Acts rightwards.
