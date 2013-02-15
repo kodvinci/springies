@@ -1,6 +1,7 @@
-	Springies Project Group 8
+	Springies Project 
+Group 8
 
-	TEAM MEMBERS
+	Team Members
 1. Erick Gonzalez
 2. Leonard Ng'eno
 
@@ -27,19 +28,26 @@ Assembly class since the project does not require for any differenetion between 
 assemblies, e.g, there is no requirement to clear a particular assembly or to have one particular
 assembly being impacted by a particular set of forces only.
 
-
 	Key codes
 1. Press "n" to load new assemblies.
 2. Press "c" to clear all assemblies.
 3. Press "g", "v", "m" to turn on or off the force of gravity, viscosity or center of mass respectively.
 4. Press "1", "2", "3", "4" to turn on or off the top, right, bottom, and left wall forces respectively.
+5. Press the "up" arrow key to increase the size of the view area.
+6. Press the "down" arrow key to decrease the size of the view area.
+7. Click on the mouse to drag around the mass nearest to the mouse click area.
 
-The project is organized into various packages that perform particular functions.
+	Known Problems
+1. The masses and the springs occassionally disappear beyond the view bounds.
+2. The center of mass force does not function properly.
+
+The project is organized into various packages based on the functions of the classes in them. 
 
 	1. Simulation Package
 This package handles the reading of the input files containing the data for the 
 simulation. It then parses the input, stores them in various data structures
-and then regularly paints them on the display screen. 
+and regularly paints and updates them on the display screen. It also handles user interaction 
+with the simulation.
 
 		a. Factory Class
 Reads the input files and stores the data based on the key word that appears as 
@@ -60,6 +68,15 @@ held in Lists while the forces are stored in Collections. The major methods are:
 1. paint - draws the springs and masses
 2. update - updates the simulation after a certain time period has elapsed
 3. applyEnvironmentalForces - applies the given force to the given mass
+
+		c. UserInputListener Class
+This class handles the interaction between the simulation and a user. The available 
+forms of interaction are key presses and mouse movements. The user can:
+1. Turn forces on and off
+2. Create new assemblies
+3. Clear all assemblies
+4. Change the size of the view area
+5. Drag masses around by clicking on the area nearest to the mass that they want to drag around
 
 	2. Simulation.elements.masses Package
 It has two classes, Mass and FixedMass class. The Mass class creates a mass object 
